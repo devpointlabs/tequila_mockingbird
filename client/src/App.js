@@ -10,6 +10,7 @@ import { Container, } from "semantic-ui-react";
 const App = () => (
   <Fragment>
     <Navbar />
+    <Fetchuser>
     <Container>
       <Switch>
         <Route exact path="/" component={Home} />
@@ -18,6 +19,7 @@ const App = () => (
         <Route component={NoMatch} />
       </Switch>
     </Container>
+    </Fetchuser>
   </Fragment>
 )
 
