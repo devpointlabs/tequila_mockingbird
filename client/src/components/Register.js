@@ -20,6 +20,14 @@ class Register extends React.Component {
     const { name, value, } = e.target;
     this.setState({ [name]: value, });
   }
+  captcha = () => { 
+
+    let svgCaptcha = require('svg-captcha');
+    
+    let captcha = svgCaptcha.create();
+    console.log(captcha);
+    // {data: '<svg.../svg>', text: 'abcd'}
+  }
   
   render() {
     const { email, password, passwordConfirmation, } = this.state;
@@ -62,6 +70,7 @@ class Register extends React.Component {
       </Segment>
     )
   }
+  
 }
 
 export default class ConnectedRegister extends React.Component {
