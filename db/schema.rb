@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_023617) do
+ActiveRecord::Schema.define(version: 2020_07_02_013115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boozedrinks", force: :cascade do |t|
+    t.bigint "booze_id", null: false
+    t.bigint "drink_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booze_id"], name: "index_boozedrinks_on_booze_id"
+    t.index ["drink_id"], name: "index_boozedrinks_on_drink_id"
+  end
+
+  create_table "boozes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "production"
+    t.text "history"
+  end
+
+  create_table "drinks", force: :cascade do |t|
+    t.string "name"
+    t.text "history"
+    t.text "ingredients"
+    t.text "prep_serv"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -45,4 +71,6 @@ ActiveRecord::Schema.define(version: 2020_07_01_023617) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "boozedrinks", "boozes"
+  add_foreign_key "boozedrinks", "drinks"
 end
