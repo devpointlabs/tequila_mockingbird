@@ -10,10 +10,13 @@
     "devise-axios": "^1.0.24",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-google-recaptcha": "^2.1.0",
+    "react-recaptcha-google": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2"
+    "semantic-ui-react": "^0.88.2",
+    "svg-captcha": "^1.4.0"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
