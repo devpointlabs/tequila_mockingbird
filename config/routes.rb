@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 end
 
   namespace :api do
-    resources :booze
+    resources :boozes
   end
  
 end
