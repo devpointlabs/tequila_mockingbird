@@ -9,6 +9,9 @@ import { Container, } from "semantic-ui-react";
 import FetchUser from './components/FetchUser';
 import AuthProvider from './providers/AuthProvider';
 
+
+
+
 const App = () => (
   <Fragment>
     <Navbar />
