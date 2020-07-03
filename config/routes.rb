@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :booze
+    resources :boozes
+    resources :drinks
   end
  
 end
