@@ -24,9 +24,11 @@ end
     else
       render json: { meesage: "Unable to create Booze"}
   end
+end
+
 
   def destroy
-    Booze.find(params[:id].destroy)
+    Booze.find(params[:id]).destroy
     render json: { message: "Destroyed the BOOZE!" }
   end
 

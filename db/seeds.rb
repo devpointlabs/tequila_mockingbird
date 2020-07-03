@@ -11,14 +11,16 @@
 booze = Booze.create(
   name: 'vodka',
   production: 'made with potatoes',
-  history: 'unknown...'
+  history: 'unknown...',
+  
 )
 
 drink = Drink.create(
   name: 'vodka martini',
   history: 'James Bond',
   ingredients: 'vodka and an olive',
-  prep_serv: 'shaken NOT Stirred'
+  prep_serv: 'shaken NOT Stirred',
+  
 )
 
 boozedrink = Boozedrink.create(
