@@ -36,15 +36,30 @@ class DrinkView extends React.Component {
     this.setState({ toggleEdit: !this.state.toggleEdit });
   };
 
+  // deleteDrink = (id) => {
+  //   axios.delete(`/api/drinks/${id}`)
+  //     .then(res => {
+  //     this.setState({ drink: this.state.drink.filter(drink => drink.id !== id)})
+  //   })
+  //   return <Redirect to = {{ pathname: "/drinks" }} />;
+    
+  // }
+
   render() {
     const { name, history, ingredients, prep_serv} = this.state.drink;
     return (
       <div>
-        <h3>{name}</h3>
+        <h1>{name}</h1>
+        <h1>{history}</h1>
+        <h1>{ingredients}</h1>
+        <h1>{prep_serv}</h1>
+        
         {this.state.toggleEdit ? <DrinkForm drink={this.state.drink} editDrink={this.editDrink} toggleEdit={this.toggle}/> : null}
-        <button onClick={() => this.toggle()}>
+        <button onClick={ () => this.toggle()}>
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
+        {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
+        
       </div>
     );
   }

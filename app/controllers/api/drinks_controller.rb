@@ -19,8 +19,11 @@ class Api::DrinksController < ApplicationController
 
   def update
     drink = Drink.find(params[:id])
-    drink.update(complete: !drink.complete)
-    render json: drink
+    if drink.update(drink_params)
+      render json: drink
+    else
+      render json: { message: "drink not updated"}
+    end
   end
 
   def destroy
@@ -30,6 +33,6 @@ class Api::DrinksController < ApplicationController
 
   private
     def drink_params
-      params.require(:drink).permit(:name, :history, :prep_serve, :ingredients)
+      params.require(:drink).permit(:name, :history, :prep_serv, :ingredients)
     end
 end

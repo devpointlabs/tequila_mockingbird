@@ -17,7 +17,6 @@ class DrinkForm extends React.Component {
   };
 
   handleSubmit = (e) => {
-    // const { name, history, ingredients, prep_serv } = this.state;
     e.preventDefault();
 
     if (this.props.drink) {
@@ -27,7 +26,6 @@ class DrinkForm extends React.Component {
     } else {
       this.props.add(this.state);
       this.props.toggleForm();
-      this.setState();
     }
   };
 

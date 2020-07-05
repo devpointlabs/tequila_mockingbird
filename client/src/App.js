@@ -4,7 +4,7 @@ import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
-import { Switch, Route, } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Container, } from "semantic-ui-react";
 import FetchUser from './components/FetchUser';
 import Drinks from './components/Drinks/Drinks';
