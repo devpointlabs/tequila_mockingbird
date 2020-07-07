@@ -65,7 +65,21 @@ class Navbar extends React.Component {
             />
           </Link>
             { this.rightNavItems() }
-        </Menu>
+            <Menu.Menu position='right'>
+            <div className='ui right aligned category search item'>
+           <div className='ui transparent icon input'>
+            <input
+              className='prompt'
+              type='text'
+              placeholder='Search Cocktails...'
+            />
+            <i className='search link icon' />
+          </div>
+          <div className='results' />
+        </div>
+      </Menu.Menu>
+    </Menu>
+        
       </div>
     )
   }
