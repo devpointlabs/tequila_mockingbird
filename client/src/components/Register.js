@@ -5,18 +5,18 @@ import { Button, Form, Segment, Header, } from 'semantic-ui-react';
 
 
 
-
+// Hey we added "name" to state
 
 class Register extends React.Component {
-  state = { email: '', password: '', passwordConfirmation: '', };
+  state = { email: '', password: '', passwordConfirmation: '', name: "", };
   
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, passwordConfirmation } = this.state;
+    const { email, password, passwordConfirmation, name } = this.state;
     const { auth: { handleRegister, }, history, } = this.props;
 
     if (password === passwordConfirmation)
-      handleRegister({ email, password, passwordConfirmation, }, history);
+      handleRegister({ email, password, passwordConfirmation, name }, history);
     else
       alert('Passwords Do Not Match!')
   }
@@ -28,12 +28,20 @@ class Register extends React.Component {
 
   
   render() {
-    const { email, password, passwordConfirmation, } = this.state;
+    const { email, password, passwordConfirmation, name } = this.state;
     
     return (
       <Segment basic>
         <Header as='h1' textAlign='center'>Register</Header>
         <Form onSubmit={this.handleSubmit}>
+        <Form.Input     //Adding name to registration form
+          label="Name"
+          required
+          name="name"
+          value={name}
+          placeholder="Name"
+          onChange={this.handleChange}
+        />
           <Form.Input
             label="Email"
             required

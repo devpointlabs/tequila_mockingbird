@@ -4,7 +4,7 @@ import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect} from 'react-router-dom';
 import { Container, } from "semantic-ui-react";
 import FetchUser from './components/FetchUser';
 
@@ -16,6 +16,10 @@ import AuthProvider from './providers/AuthProvider';
 import Boozes from "./components/Booze/Boozes"
 import BoozeView from "./components/Booze/BoozeView"
 
+import Profile from "./components/Profile"
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
+
 const App = () => (
   <Fragment>
     <Navbar />
@@ -23,6 +27,7 @@ const App = () => (
     <Container>
       <Switch>
         <Route exact path="/" component={Home} />
+        <ProtectedRoute exact path='./components/Profile' component={Profile} /> {/* We added this protected route from lecture*/}
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
