@@ -15,6 +15,8 @@ import AuthProvider from './providers/AuthProvider';
 import Boozes from "./components/Booze/Boozes";
 import BoozeView from "./components/Booze/BoozeView";
 
+
+
 const App = () => (
   <Fragment>
     <Navbar />
