@@ -27,7 +27,7 @@ const App = () => (
     <Container>
       <Switch>
         <Route exact path="/" component={Home} />
-        <ProtectedRoute exact path='./components/Profile' component={Profile} /> {/* We added this protected route from lecture*/}
+        <ProtectedRoute exact path='/profile' component={Profile} /> {/* We added this protected route from lecture*/}
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
