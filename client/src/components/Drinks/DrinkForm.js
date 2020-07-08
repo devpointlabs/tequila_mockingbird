@@ -32,6 +32,7 @@ class DrinkForm extends React.Component {
   };
 
   handleSubmit = (e) => {
+    
     e.preventDefault();
 
     if (this.props.drink) {
@@ -39,7 +40,8 @@ class DrinkForm extends React.Component {
       this.props.editDrink(id, this.state);
       this.props.toggleEdit();
     } else {
-      this.props.add(this.state);
+      const{ name, history, ingredients, prep_serv, boozeChoice} =this.state 
+      this.props.add({ name:name, ingredients:ingredients, prep_serv:prep_serv, history:history},boozeChoice);
       this.props.toggleForm();
     }
   };
@@ -83,7 +85,9 @@ class DrinkForm extends React.Component {
           name="boozeChoice" 
           value={boozeChoice}
           onChange={this.handleChange}
-          >
+          ><option> 
+            booze...
+          </option>
           {this.addBoozeToDrink()}
         </select>
 

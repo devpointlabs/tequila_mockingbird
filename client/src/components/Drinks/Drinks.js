@@ -29,13 +29,19 @@ class Drinks extends React.Component {
   
   //! CRUD ACTIONS
 
-  addDrink = (newDrink) => {
+  addDrink = (newDrink,boozeId) => {
     const { drinks } = this.state;
-    // debugger
+    debugger
     axios.post("/api/drinks", newDrink).then((res) => {
       this.setState({ drinks: [res.data, ...drinks] });
+      this.addBoozeDrink(res.data.id, boozeId)
     });
   };
+
+  addBoozeDrink = (drinkId, boozeId) => {
+      debugger
+
+  }
 
   deleteDrink = (id) => {
     axios.delete(`/api/drinks/${id}`)
