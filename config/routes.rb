@@ -7,9 +7,9 @@ Rails.application.routes.draw do
 
     resources :drinks
 
+    resources :users, only: :update
   end
  
 end
-
 
 
