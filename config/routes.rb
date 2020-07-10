@@ -8,8 +8,12 @@ Rails.application.routes.draw do
     resources :drinks do
       resources :boozedrinks
     end
+
+    # TODO
+      resources :boozes do
+        resources :boozedrinks
+    end
+    
   end
 end
-
-
 

@@ -3,13 +3,15 @@ class Api::BoozedrinksController < ApplicationController
   before_action :set_boozedrink, only: [:show, :edit, :update, :destroy]
 
   def index
-    render json: @drink.boozedrink.all
+    render json: @drink.boozedrinks.all
   end
 
   def create
-    boozedrink = @drink.boozedrink.new(boozedrink_params)
+   
+    boozedrink = @drink.boozedrinks.new(boozedrink_params)
+    
     if boozedrink.save
-      render json: @drink.boozedrink
+      render json: boozedrink
     else
       render json: { meesage: "Unable to create Booze"}
     end

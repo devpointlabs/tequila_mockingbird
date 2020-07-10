@@ -8,17 +8,18 @@ class DrinkForm extends React.Component {
   ingredients: "", 
   prep_serv: "", 
   boozeChoice: null,
-  boozes: [],
+    boozes: [],
+    editBoozeId: ''
 };
 
   componentDidMount() {
     if (this.props.drink) {
-      const {  name, history, ingredients, prep_serv } = this.props.drink;
+      const {  name, history, ingredients, prep_serv, id } = this.props.drink;
       this.setState({ name: name, history: history, ingredients: ingredients, prep_serv: prep_serv});
     }
     // axios call to booze controller index method
     // to grab all boozes, set them to booze array 
-    axios .get('/api/boozes')
+    axios.get('/api/boozes')
     .then((res) => {
       this.setState({ boozes: res.data });
     })
@@ -37,7 +38,13 @@ class DrinkForm extends React.Component {
 
     if (this.props.drink) {
       const { id } = this.props.drink;
-      this.props.editDrink(id, this.state);
+      axios.get(`/api/drinks/${id}/boozedrinks`)
+        .then(res => {
+          const boozeDrink = res.data[0]
+          this.setState({editBoozeId:boozeDrink.id }) 
+      })
+      const { name, history, ingredients, prep_serv, editBoozeId} = this.state;
+      this.props.editDrink(id, {name: name, history: history, ingredients: ingredients, prep_serv: prep_serv }, editBoozeId);
       this.props.toggleEdit();
     } else {
       const{ name, history, ingredients, prep_serv, boozeChoice} =this.state 
