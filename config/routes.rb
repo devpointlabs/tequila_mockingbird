@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :boozedrinks
     end
     
+    resources :users, only: :update
+
   end
 end
-
