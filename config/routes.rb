@@ -5,11 +5,16 @@ Rails.application.routes.draw do
   namespace :api do
     resources :boozes
 
-    resources :drinks
+    resources :drinks do
+      resources :boozedrinks
+    end
 
+    # TODO
+      resources :boozes do
+        resources :boozedrinks
+    end
+    
     resources :users, only: :update
+
   end
- 
 end
-
-

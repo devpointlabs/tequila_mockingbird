@@ -4,7 +4,11 @@ import DrinkForm from './DrinkForm';
 
 
 class DrinkView extends React.Component {
-  state = { drink: {}, toggleEdit: false};
+  state = { 
+   drink: {},
+   toggleEdit: false,
+   boozes: []
+  };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -17,12 +21,20 @@ class DrinkView extends React.Component {
     axios.put(`/api/drinks/${id}`, drink)
       .then(res => {
       this.setState({drink: res.data})
+      this.updateBoozeDrink(id, drink.boozeChoice)
       })
   };
 
+  updateBoozeDrink = (drink_id, booze_id) => {
+    debugger
+    axios.put(`/api/drinks/`)
+  }
+
+  // 
+
   updateDrink = (id) => {
   axios.put(`/api/drinks/${id}`)
-    .then( res => {
+    .then( res => { 
       const drinks = this.state.drinks.map( t => {
         if(t.id === id)
           return res.data;
