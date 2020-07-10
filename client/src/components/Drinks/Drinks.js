@@ -40,12 +40,21 @@ class Drinks extends React.Component {
   };
 
   addBoozeDrink = (drinkId, checkedBoozes) => {
-    let boozeIds = checkedBoozes.map(b => {
-      return b.id
-    })
-    debugger
+    // assuming our create is normal
+    // const promiseBoozeArray = checkedBoozes.map(cb => {
+    //   return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
+    //     booze_id: cb.id,
+    //   })  
+    // })
+    // Promise.all(promiseBoozeArray)
+    //   .catch(
+    //   alert("wooopsie doopsie")
+    // )
+
+
+
     axios
-      .post(`/api/drinks/${drinkId}/boozedrinks`, boozeIds)
+      .post(`/api/drinks/${drinkId}/boozedrinks`, {boozedrink: {booze_id_array: checkedBoozes}})
       .then((res) => {
         console.log(res.data);
       });

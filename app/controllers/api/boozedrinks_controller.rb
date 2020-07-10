@@ -8,14 +8,18 @@ class Api::BoozedrinksController < ApplicationController
 
   def create
    
-    bd = Boozedrink.new
-    binding.pry
-    boozedrink = @drink.boozedrinks.new(boozedrink_params)
-    binding.pry
-    if boozedrink.save
-      render json: boozedrink
+    booze_ids = params[:boozedrink][:booze_id_array].map {|b| {booze_id: b["id"]} } 
+    boozedrinks = @drink.boozedrinks.create(booze_ids)
+    
+    errors = boozedrinks
+    .map(&:errors)
+    .map(&:messages)
+    .reduce({}, :merge)
+    
+    if errors.empty?
+      render json: boozedrinks
     else
-      render json: { meesage: "Unable to create Booze"}
+      render json: errors
     end
   end
 
@@ -47,7 +51,7 @@ class Api::BoozedrinksController < ApplicationController
   end
   
   def boozedrink_params
-    params.require(:boozedrink).permit(:booze_id, :drink_id)
+    params.require(:boozedrink).permit(:booze_id, :drink_id, booze_id_array: [])
   end
 
 
