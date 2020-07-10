@@ -8,8 +8,10 @@ class Api::BoozedrinksController < ApplicationController
 
   def create
    
+    bd = Boozedrink.new
+    binding.pry
     boozedrink = @drink.boozedrinks.new(boozedrink_params)
-    
+    binding.pry
     if boozedrink.save
       render json: boozedrink
     else

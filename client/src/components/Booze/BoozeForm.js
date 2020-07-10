@@ -2,7 +2,7 @@ import React from "react";
 import Booze from "./Booze";
 
 class BoozeForm extends React.Component {
-  state = { name: "", production: "", history: "" };
+  state = { name: "", production: "", history: "", is_checked: false };
 
   componentDidMount() {
     if (this.props.booze) {

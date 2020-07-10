@@ -10,7 +10,7 @@ class DrinkView extends React.Component {
    boozes: []
   };
 
-  componentDidMount() {
+  componentDidMount() { 
     const { id } = this.props.match.params;
     axios.get(`/api/drinks/${id}`).then((res) => {
       this.setState({ drink: res.data });

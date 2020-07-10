@@ -31,7 +31,6 @@ class Boozes extends React.Component {
 
   addBooze = (newBooze) => {
     const { boozes } = this.state;
-    // debugger
     axios.post("/api/boozes", newBooze).then((res) => {
       this.setState({ boozes: [res.data, ...boozes] });
     });
