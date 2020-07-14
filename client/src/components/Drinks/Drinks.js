@@ -41,23 +41,22 @@ class Drinks extends React.Component {
 
   addBoozeDrink = (drinkId, checkedBoozes) => {
     // assuming our create is normal
-    // const promiseBoozeArray = checkedBoozes.map(cb => {
-    //   return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
-    //     booze_id: cb.id,
-    //   })  
-    // })
-    // Promise.all(promiseBoozeArray)
-    //   .catch(
-    //   alert("wooopsie doopsie")
-    // )
+    const promiseBoozeArray = checkedBoozes.map(cb => {
+      return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
+        booze_id: cb.id,
+      })  
+    })
+    Promise.all(promiseBoozeArray)
+      .catch(
+      console.log("oopsie woopsie")
+    )
 
-
-
-    axios
-      .post(`/api/drinks/${drinkId}/boozedrinks`, {boozedrink: {booze_id_array: checkedBoozes}})
-      .then((res) => {
-        console.log(res.data);
-      });
+    // Backend mumbo jumbo
+    // axios
+    //   .post(`/api/drinks/${drinkId}/boozedrinks`, {boozedrink: {booze_id_array: checkedBoozes}})
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
   };
 
   deleteDrink = (id) => {
