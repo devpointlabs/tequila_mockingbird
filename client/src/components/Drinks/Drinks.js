@@ -7,6 +7,7 @@ class Drinks extends React.Component {
   state = {
     drinks: [],
     toggleForm: false,
+    boozedrinks: [],
   };
 
 
@@ -17,7 +18,7 @@ class Drinks extends React.Component {
         this.setState({ drinks: res.data });
       })
       .catch(console.log("Woopsie"));
-  }
+  }f
 
 
   renderDrinks = () =>
@@ -29,13 +30,20 @@ class Drinks extends React.Component {
   
   //! CRUD ACTIONS
 
-  addDrink = (newDrink) => {
+  addDrink = (newDrink, boozeId) => {
     const { drinks } = this.state;
-    // debugger
     axios.post("/api/drinks", newDrink).then((res) => {
       this.setState({ drinks: [res.data, ...drinks] });
+      this.addBoozeDrink(res.data.id, boozeId)
     });
   };
+
+  addBoozeDrink = (drinkId, boozeId) => {
+      axios.post(`/api/drinks/${drinkId}/boozedrinks`, {drink_id: drinkId, booze_id: boozeId}).then((res) => {
+        console.log(res.data)
+      });
+  };
+
 
   deleteDrink = (id) => {
     axios.delete(`/api/drinks/${id}`)

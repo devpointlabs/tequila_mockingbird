@@ -13,7 +13,9 @@ class Register extends React.Component {
     password: '',
     passwordConfirmation: '',
     recaptchaSuccessful: false,
+    name: '',
   };
+
 
 
   constructor(props, context) {
@@ -50,10 +52,11 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, passwordConfirmation, recaptchaSuccessful} = this.state;
+    const { email, password, passwordConfirmation, recaptchaSuccessful, name} = this.state;
     const { auth: { handleRegister, }, history, } = this.props;
     if (password === passwordConfirmation && recaptchaSuccessful === true)
-      handleRegister({ email, password, passwordConfirmation, }, history);
+      handleRegister({ email, password, passwordConfirmation, name,  }, history);
+
     else
       alert(recaptchaSuccessful + 'Password do not match')
   }
@@ -66,13 +69,23 @@ class Register extends React.Component {
 
 
   render() {
-    const { email, password, passwordConfirmation, } = this.state;
+
+    const { email, password, passwordConfirmation, name } = this.state;
+    
 
     return (
       <>
       <Segment basic>
         <Header as='h1' textAlign='center'>Register</Header>
         <Form onSubmit={this.handleSubmit}>
+        <Form.Input     //Adding name to registration form
+          label="Name"
+          required
+          name="name"
+          value={name}
+          placeholder="Name"
+          onChange={this.handleChange}
+        />
           <Form.Input
             label="Email"
             required

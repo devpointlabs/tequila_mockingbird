@@ -2,6 +2,7 @@ import React from 'react'
 import { AuthConsumer, } from "../providers/AuthProvider";
 import { Menu, } from 'semantic-ui-react'
 import { Link, withRouter, } from 'react-router-dom'
+import axios from "axios";
 
 class Navbar extends React.Component {
   
@@ -11,6 +12,13 @@ class Navbar extends React.Component {
     if (user) {
       return (
         <Menu.Menu position='right'>
+          <Link to='/profile'>
+            <Menu.Item
+              name='profile'
+              id='profile'
+              active={location.pathname === '/profile'}
+            />
+          </Link>
           <Menu.Item
             name='logout'
             onClick={ () => handleLogout(this.props.history) }
