@@ -35,6 +35,8 @@ class BoozeView extends React.Component {
     this.setState({ toggleEdit: !this.state.toggleEdit });
   };
 
+
+
   render() {
     const { name, history, production } = this.state.booze;
     return (
@@ -45,6 +47,9 @@ class BoozeView extends React.Component {
         <button onClick={() => this.toggle()}>
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
+
+       
+
       </div>
     );
   }

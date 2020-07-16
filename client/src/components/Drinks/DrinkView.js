@@ -1,13 +1,19 @@
 import React from 'react';
 import axios from 'axios';
 import DrinkForm from './DrinkForm';
+import Dropzone from 'react-dropzone'; //Import Dropzone
+import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
+import Comment from '../Comment/Comment';
+import CommentForm from '../Comment/CommentForm';
+
 
 
 class DrinkView extends React.Component {
   state = { 
    drink: {},
    toggleEdit: false,
-   boozes: []
+   boozes: [],
+  
   };
 
   componentDidMount() {
@@ -48,17 +54,10 @@ class DrinkView extends React.Component {
     this.setState({ toggleEdit: !this.state.toggleEdit });
   };
 
-  // deleteDrink = (id) => {
-  //   axios.delete(`/api/drinks/${id}`)
-  //     .then(res => {
-  //     this.setState({ drink: this.state.drink.filter(drink => drink.id !== id)})
-  //   })
-  //   return <Redirect to = {{ pathname: "/drinks" }} />;
-    
-  // }
+  
 
   render() {
-    const { name, history, ingredients, prep_serv} = this.state.drink;
+    const { name, history, ingredients, prep_serv, id} = this.state.drink;
     return (
       <div>
         <h1>{name}</h1>
@@ -71,7 +70,8 @@ class DrinkView extends React.Component {
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
-        
+        <h3> Add an image or comment?</h3>
+        <Comment drinkId={id} />
       </div>
     );
   }

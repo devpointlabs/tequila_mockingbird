@@ -9,12 +9,16 @@ Rails.application.routes.draw do
       resources :boozedrinks
     end
 
+    resources :drinks do 
+      resources :comments
+    end
+    
+
     # TODO
       resources :boozes do
         resources :boozedrinks
     end
     
     resources :users, only: :update
-
   end
 end
