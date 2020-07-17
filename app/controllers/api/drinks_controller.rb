@@ -31,6 +31,12 @@ class Api::DrinksController < ApplicationController
     render json: { mesage: 'Drink Deleted'}
   end
 
+  def destroyBoozeDrink
+    Drink.find(params[:id]).boozedrinks.destroy_all
+    binding.pry
+    render json: { mesage: 'boozedrink Deleted'}
+  end
+
   private
     def drink_params
       params.require(:drink).permit(:name, :history, :prep_serv, :ingredients)

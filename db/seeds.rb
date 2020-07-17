@@ -12,7 +12,7 @@ booze = Booze.create(
   name: 'vodka',
   production: 'made with potatoes',
   history: 'unknown...',
-  
+  is_checked: false,
 )
 
 drink = Drink.create(
