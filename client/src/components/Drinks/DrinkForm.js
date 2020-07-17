@@ -9,7 +9,6 @@ class DrinkForm extends React.Component {
     ingredients: "",
     prep_serv: "",
     boozes: [],
-    editBoozeId: "",
     checkedBoozes: [],
   };
 
@@ -42,21 +41,21 @@ class DrinkForm extends React.Component {
     e.preventDefault();
 
     if (this.props.drink) {
-      const { id } = this.props.drink;
-      axios.get(`/api/drinks/${id}/boozedrinks`).then((res) => {
-        const boozeDrink = res.data[0];
-        this.setState({ editBoozeId: boozeDrink.id });
-      });
-      const { name, history, ingredients, prep_serv, editBoozeId } = this.state;
+    //   const { id } = this.props.drink;
+    //   axios.get(`/api/drinks/${id}/boozedrinks`).then((res) => {
+    //     const boozeDrink = res.data[0];
+    //     this.setState({ editBoozeId: boozeDrink.id });
+    //   });
+      const { name, history, ingredients, prep_serv, checkedBoozes } = this.state;
       this.props.editDrink(
-        id,
+        this.props.drink.id,
         {
           name: name,
           history: history,
           ingredients: ingredients,
           prep_serv: prep_serv,
         },
-        editBoozeId
+        checkedBoozes
       );
       this.props.toggleEdit();
     } else {

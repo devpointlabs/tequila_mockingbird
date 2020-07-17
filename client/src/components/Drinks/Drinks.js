@@ -82,7 +82,7 @@ class Drinks extends React.Component {
           <button onClick={() => this.toggle()}>Toggle Add Form</button>
         </div>
         {this.renderDrinks()}
-      </div>
+      </div> 
     );
   }
 }
