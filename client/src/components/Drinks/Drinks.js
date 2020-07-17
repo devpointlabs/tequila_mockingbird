@@ -18,7 +18,7 @@ class Drinks extends React.Component {
       })
       .catch(console.log("Woopsie"));
   }
-  f;
+  
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
@@ -82,7 +82,7 @@ class Drinks extends React.Component {
           <button onClick={() => this.toggle()}>Toggle Add Form</button>
         </div>
         {this.renderDrinks()}
-      </div>
+      </div> 
     );
   }
 }

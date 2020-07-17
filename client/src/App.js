@@ -12,9 +12,9 @@ import Drinks from './components/Drinks/Drinks';
 import DrinkView from './components/Drinks/DrinkView';
 
 import AuthProvider from './providers/AuthProvider';
+import Boozes from "./components/Booze/Boozes";
+import BoozeView from "./components/Booze/BoozeView";
 
-import Boozes from "./components/Booze/Boozes"
-import BoozeView from "./components/Booze/BoozeView"
 
 import Profile from "./components/Profile"
 import ProtectedRoute from './components/auth/ProtectedRoute';
