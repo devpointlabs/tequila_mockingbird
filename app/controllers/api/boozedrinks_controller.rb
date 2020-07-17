@@ -6,10 +6,26 @@ class Api::BoozedrinksController < ApplicationController
     render json: @drink.boozedrinks.all
   end
 
-  def create
+  # def create
    
-    boozedrink = @drink.boozedrinks.new(boozedrink_params)
+  #   booze_ids = params[:boozedrink][:booze_id_array].map {|b| {booze_id: b["id"]} } 
+  #   boozedrinks = @drink.boozedrinks.create(booze_ids)
     
+  #   errors = boozedrinks
+  #   .map(&:errors)
+  #   .map(&:messages)
+  #   .reduce({}, :merge)
+    
+  #   if errors.empty?
+  #     render json: boozedrinks
+  #   else
+  #     render json: errors
+  #   end
+  # end
+
+  def create
+    boozedrink = @drink.boozedrinks.new(boozedrink_params)
+    # binding.pry
     if boozedrink.save
       render json: boozedrink
     else
@@ -45,7 +61,8 @@ class Api::BoozedrinksController < ApplicationController
   end
   
   def boozedrink_params
-    params.require(:boozedrink).permit(:booze_id, :drink_id)
+    params.require(:boozedrink).permit(:booze_id, :drink_id, #booze_id_array: []
+    )
   end
 
 

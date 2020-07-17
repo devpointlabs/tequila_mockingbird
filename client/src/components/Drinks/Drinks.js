@@ -10,7 +10,6 @@ class Drinks extends React.Component {
     boozedrinks: [],
   };
 
-
   componentDidMount() {
     axios
       .get("/api/drinks")
@@ -18,40 +17,55 @@ class Drinks extends React.Component {
         this.setState({ drinks: res.data });
       })
       .catch(console.log("Woopsie"));
-  }f
-
+  }
+  
 
   renderDrinks = () =>
-    this.state.drinks.map((drink) => <Drink {...drink} deleteDrink={this.deleteDrink}/>);
+    this.state.drinks.map((drink) => (
+      <Drink {...drink} deleteDrink={this.deleteDrink} />
+    ));
 
-    toggle = () => {
-      this.setState({ toggleForm: !this.state.toggleForm });
-    };
-  
+  toggle = () => {
+    this.setState({ toggleForm: !this.state.toggleForm });
+  };
+
   //! CRUD ACTIONS
 
-  addDrink = (newDrink, boozeId) => {
+  addDrink = (newDrink, checkedBoozes) => {
     const { drinks } = this.state;
     axios.post("/api/drinks", newDrink).then((res) => {
       this.setState({ drinks: [res.data, ...drinks] });
-      this.addBoozeDrink(res.data.id, boozeId)
+      this.addBoozeDrink(res.data.id, checkedBoozes);
     });
   };
 
-  addBoozeDrink = (drinkId, boozeId) => {
-      axios.post(`/api/drinks/${drinkId}/boozedrinks`, {drink_id: drinkId, booze_id: boozeId}).then((res) => {
-        console.log(res.data)
-      });
+  addBoozeDrink = (drinkId, checkedBoozes) => {
+    // assuming our create is normal
+    const promiseBoozeArray = checkedBoozes.map(cb => {
+      return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
+        booze_id: cb.id,
+      })  
+    })
+    Promise.all(promiseBoozeArray)
+      .catch(
+      console.log("oopsie woopsie")
+    )
+
+    // Backend mumbo jumbo
+    // axios
+    //   .post(`/api/drinks/${drinkId}/boozedrinks`, {boozedrink: {booze_id_array: checkedBoozes}})
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
   };
 
-
   deleteDrink = (id) => {
-    axios.delete(`/api/drinks/${id}`)
-      .then(res => {
-      this.setState({ drinks: this.state.drinks.filter(drink => drink.id !== id)})
-    })
-  }
-
+    axios.delete(`/api/drinks/${id}`).then((res) => {
+      this.setState({
+        drinks: this.state.drinks.filter((drink) => drink.id !== id),
+      });
+    });
+  };
 
   render() {
     // DECONSTRUCTION
@@ -68,7 +82,7 @@ class Drinks extends React.Component {
           <button onClick={() => this.toggle()}>Toggle Add Form</button>
         </div>
         {this.renderDrinks()}
-      </div>
+      </div> 
     );
   }
 }

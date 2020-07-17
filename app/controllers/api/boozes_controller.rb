@@ -35,7 +35,7 @@ end
   private
 
   def booze_params
-    params.require(:booze).permit(:name, :production, :history)
+    params.require(:booze).permit(:name, :production, :history, :is_checked)
   end
 
 end
