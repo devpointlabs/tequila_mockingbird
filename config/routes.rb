@@ -20,10 +20,7 @@ Rails.application.routes.draw do
     end
     
     resources :users, only: :update
-<<<<<<< HEAD
-=======
 
     delete '/drinks/:id/boozedrinks', to: 'drinks#destroyBoozeDrink', as: 'destroyBoozeDrink'
->>>>>>> b4f39d8ff1ecd745a6b219e700aff4d5c6294934
   end
 end
