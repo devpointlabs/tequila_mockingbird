@@ -18,7 +18,7 @@ class Drinks extends React.Component {
       })
       .catch(console.log("Woopsie"));
   }
-  f;
+  
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
