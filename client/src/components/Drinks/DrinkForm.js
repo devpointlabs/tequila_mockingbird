@@ -1,6 +1,24 @@
 import React from "react";
 import Drink from "./Drink";
 import axios from "axios";
+import Dropzone from 'react-dropzone'; //Import Dropzone
+import { Form, Grid} from 'semantic-ui-react';
+
+const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
+
+const styles = {
+  dropzone: {
+    height: "150px",
+    width: "150px",
+    border: "1px dashed black",
+    borderRadius: "5px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px",
+  },
+}
+
 
 class DrinkForm extends React.Component {
   state = {
@@ -10,16 +28,22 @@ class DrinkForm extends React.Component {
     prep_serv: "",
     boozes: [],
     checkedBoozes: [],
+    file: ''
   };
+
+  onDrop = (files) => {
+    this.setState({file: files[0] });
+  }
 
   componentDidMount() {
     if (this.props.drink) {
-      const { name, history, ingredients, prep_serv, id } = this.props.drink;
+      const { name, history, ingredients, prep_serv, id, file } = this.props.drink;
       this.setState({
         name: name,
         history: history,
         ingredients: ingredients,
         prep_serv: prep_serv,
+        file: file
       });
     }
     // axios call to booze controller index method
@@ -41,12 +65,12 @@ class DrinkForm extends React.Component {
     e.preventDefault();
 
     if (this.props.drink) {
-    //   const { id } = this.props.drink;
-    //   axios.get(`/api/drinks/${id}/boozedrinks`).then((res) => {
-    //     const boozeDrink = res.data[0];
-    //     this.setState({ editBoozeId: boozeDrink.id });
-    //   });
-      const { name, history, ingredients, prep_serv, checkedBoozes } = this.state;
+      //   const { id } = this.props.drink;
+      //   axios.get(`/api/drinks/${id}/boozedrinks`).then((res) => {
+      //     const boozeDrink = res.data[0];
+      //     this.setState({ editBoozeId: boozeDrink.id });
+      //   });
+      const { name, history, ingredients, prep_serv, checkedBoozes, file } = this.state;
       this.props.editDrink(
         this.props.drink.id,
         {
@@ -54,18 +78,20 @@ class DrinkForm extends React.Component {
           history: history,
           ingredients: ingredients,
           prep_serv: prep_serv,
+          file: file,
         },
         checkedBoozes
       );
       this.props.toggleEdit();
     } else {
-      const { name, history, ingredients, prep_serv, checkedBoozes } = this.state;
+      const { name, history, ingredients, prep_serv, checkedBoozes, file } = this.state;
       this.props.add(
         {
           name: name,
           ingredients: ingredients,
           prep_serv: prep_serv,
           history: history,
+          file: file
         },
         checkedBoozes
       );
@@ -86,7 +112,7 @@ class DrinkForm extends React.Component {
       if (booze.id == e.target.value) booze.is_checked = e.target.checked;
     });
     let finalBooze = newBoozes.filter((booze) => {
-      if (booze.is_checked === true) 
+      if (booze.is_checked === true)
         return booze.id;
       // this.setState({isChecked: !this.state.isChecked})
     });
@@ -108,55 +134,77 @@ class DrinkForm extends React.Component {
     ));
   };
 
-  render() {
-    const { name, history, ingredients, prep_serv, checkedBoozes } = this.state;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          placeholder="Drink Name"
-          name="name"
-          value={name}
-          onChange={this.handleChange}
-        />
-        <input
-          placeholder="History"
-          name="history"
-          value={history}
-          onChange={this.handleChange}
-        />
-        <input
-          placeholder="Ingredients"
-          name="ingredients"
-          value={ingredients}
-          onChange={this.handleChange}
-        />
-        {/* lists out all of the booze names */}
-        {/* <select 
-          placeholder="Alcohol"
-          // be a radio list where you can selected more then one booze
-          name="checkedBoozes" 
-          value={checkedBoozes}
-          onChange={this.handleChange}
-          ><option> 
-            booze...
-          </option>
-          {this.addBoozeToDrink()}
-        </select> */}
-        <input
-          placeholder="Preparation"
-          name="prep_serv"
-          value={prep_serv}
-          onChange={this.handleChange}
-        />
-        <div>
-          <label>What Booze goes in here?</label>
-          <hr />
-          {this.checkboxBooze()}
-        </div>
-        <button>Submit</button>
-      </form>
-    );
-  }
-}
+  dropZone = () => {
+    const { file, } = this.state;
+    return(
+      <Form onSubmit={this.handleSubmit}>
+        <Grid.Column width={4}>
+          <Dropzone
+            onDrop={this.onDrop}
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps, isDragActive }) => {
+              return (
+                <div
+                  {...getRootProps()}
+                  style={styles.dropzone}
+                >
+                  <input {...getInputProps()} />
+                  {
+                    isDragActive ?
+                      <p>Drop files here...</p> :
+                      <p>Try dropping some files here, or click to select files to upload.</p>
+                  }
+                </div>
+              )
+            }}
+          </Dropzone>
+        </Grid.Column>
+      </Form>
+    )}
 
-export default DrinkForm;
+    
+
+    render() {
+      const { name, history, ingredients, prep_serv, checkedBoozes, image } = this.state;
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <input
+            placeholder="Drink Name"
+            name="name"
+            value={name}
+            onChange={this.handleChange}
+          />
+          <input
+            placeholder="History"
+            name="history"
+            value={history}
+            onChange={this.handleChange}
+          />
+          <input
+            placeholder="Ingredients"
+            name="ingredients"
+            value={ingredients}
+            onChange={this.handleChange}
+          />
+          <input
+            placeholder="Preparation"
+            name="prep_serv"
+            value={prep_serv}
+            onChange={this.handleChange}
+          />
+          <div>
+            <label>What Booze goes in here?</label>
+            <hr />
+            {this.checkboxBooze()}
+          </div>
+          {this.props.drink ? this.dropZone() : ""}
+          <hr />
+          <button>Submit</button>
+        </form>
+      );
+    }
+  }
+
+  
+  export default DrinkForm;

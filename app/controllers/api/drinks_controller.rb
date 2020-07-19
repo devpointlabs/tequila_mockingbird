@@ -19,6 +19,18 @@ class Api::DrinksController < ApplicationController
 
   def update
     drink = Drink.find(params[:id])
+    file = params[:file]
+
+    if file
+      begin
+        ext = File.extname(file.tempfile)
+        cloud_image = Cloudinary::Uploader.uploade(file, public_id: file.orignal_filename, secure: true)
+        drink.image = cloud_image['secure_url']
+      rescue => e
+        render json: { errors: e }, status: 422
+      end
+    end
+
     if drink.update(drink_params)
       render json: drink
     else
@@ -33,12 +45,11 @@ class Api::DrinksController < ApplicationController
 
   def destroyBoozeDrink
     Drink.find(params[:id]).boozedrinks.destroy_all
-    binding.pry
     render json: { mesage: 'boozedrink Deleted'}
   end
 
   private
     def drink_params
-      params.require(:drink).permit(:name, :history, :prep_serv, :ingredients)
+      params.require(:drink).permit(:name, :history, :prep_serv, :ingredients, :file, :image)
     end
 end

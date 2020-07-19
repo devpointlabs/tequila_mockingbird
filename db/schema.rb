@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_07_16_004930) do
-=======
-ActiveRecord::Schema.define(version: 2020_07_10_005345) do
->>>>>>> b4f39d8ff1ecd745a6b219e700aff4d5c6294934
+ActiveRecord::Schema.define(version: 2020_07_17_021118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_005345) do
     t.bigint "drink_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
     t.index ["drink_id"], name: "index_comments_on_drink_id"
   end
 
@@ -52,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_005345) do
     t.text "prep_serv"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
   end
 
   create_table "users", force: :cascade do |t|

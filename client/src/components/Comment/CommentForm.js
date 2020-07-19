@@ -1,5 +1,5 @@
 import React from "react";
-import Comment from "./Comment";
+import Comments from "./Comments";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
 
@@ -47,8 +47,18 @@ editImage = () => {
   const { review, formValues:{file}} = this.state;
   return (
     <Form onSubmit={this.handleSubmit}>
+      <Grid.Column width={6}>
+
+
+        <input
+          placeholder="Comment"
+          name="review"
+          value={review}
+          onChange={this.handleChange}
+        />
+      </Grid.Column>
       <Grid.Column width={4}>
-        <Dropzone
+        {/* <Dropzone
           onDrop={this.onDrop}
           multiple={false}
         >
@@ -67,17 +77,7 @@ editImage = () => {
               </div>
             )
           }}
-        </Dropzone>
-      </Grid.Column>
-      <Grid.Column width={6}>
-
-
-        <input
-          placeholder="Comment"
-          name="review"
-          value={review}
-          onChange={this.handleChange}
-        />
+        </Dropzone> */}
       </Grid.Column>
       <Button>Submit</Button>
     </Form>

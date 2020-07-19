@@ -4,38 +4,39 @@ import CommentForm from "./CommentForm";
 import axios from "axios";
 
 
-class Comment extends React.Component {
+class Comments extends React.Component {
   state = {
-    reviews: [],
-    file: [],
     comments: [],
-
   };
 
 
   
   componentDidMount() {
-    if (this.props.drinkId){
+    
     axios
       .get(`/api/drinks/${this.props.drinkId}/comments`)
       .then((res) => {
         this.setState({ comments: res.data });
       })
-    
         .catch(console.log("Woopsie"));
     } 
-  }
 
 
   renderComments = () => {
-    this.state.comments.map((comment) => comment.review);
-
+    return (
+    this.state.comments.map((comment) => (
+      <div>
+        {comment.review}{comment.image}
+      </div>
+    ))
+  )
 };
 
 //! CRUD ACTIONS
 
   addComment = ( comment ) => {
     const { comments } = this.state;
+   
     axios.post((`/api/drinks/${this.props.drinkId}/comments`), comment).then((res) => {
       this.setState({ comments: [res.data, ...comments] });
 
@@ -49,13 +50,13 @@ class Comment extends React.Component {
     const { comments } = this.state
     return (
       <div>
-        <h1>Hammered</h1>
+        {/* <h1>Hammered</h1> */}
+        {this.renderComments()}
         <div>
           
             <CommentForm add={this.addComment} />
           
         </div>
-        {this.renderComments()}
       </div>
     );
   }
@@ -65,4 +66,4 @@ class Comment extends React.Component {
 
 // JSX/HTML
 
-export default Comment;
+export default Comments;
