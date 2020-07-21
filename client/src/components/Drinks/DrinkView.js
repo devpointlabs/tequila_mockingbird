@@ -1,6 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import DrinkForm from './DrinkForm';
+import Dropzone from 'react-dropzone'; //Import Dropzone
+import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
+import Comments from '../Comment/Comments';
+import CommentForm from '../Comment/CommentForm';
+
+const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 
 
 class DrinkView extends React.Component {
@@ -8,13 +14,13 @@ class DrinkView extends React.Component {
    drink: {},
    toggleEdit: false,
    boozes: [],
-   boozedrink: {}
   };
 
   componentDidMount() { 
     const { id } = this.props.match.params;
     axios.get(`/api/drinks/${id}`).then((res) => {
       this.setState({ drink: res.data });
+     
     });
     //fills boozes array 
     axios
@@ -26,14 +32,15 @@ class DrinkView extends React.Component {
     // axios.get(`/api/drinks/${drink_id}/boozedrinks/${booze_id}`).then((res) => {
     //   this.setState({ boozedrink: res.data });
     // });
-    // debugger
+  
   }
 
   editDrink = (id, drink, checkedBoozes) => {
-    debugger
 
+    let data = new FormData() 
+    data.append('file',drink.file)
     // 1. edit the actual drink
-    axios.put(`/api/drinks/${id}`, drink)
+    axios.put(`/api/drinks/${id}?name=${drink.name}&history=${drink.history}&prep_serv=${drink.prep_serv}&ingredients=${drink.ingredients}`, data)
     .then(res => {
       this.setState({ drink: res.data })
       
@@ -47,8 +54,7 @@ class DrinkView extends React.Component {
   };
 
   addBoozeDrink = (drinkId, checkedBoozes) => {
-   debugger
-    // assuming our create is normal
+       // assuming our create is normal
     const promiseBoozeArray = checkedBoozes.map(cb => {
       return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
         booze_id: cb.id,
@@ -67,8 +73,7 @@ class DrinkView extends React.Component {
   };
 
   deleteBoozeDrinks = (drinkId) => {
-    debugger
-      axios.delete(`/api/drinks/${drinkId}/boozedrinks`)
+         axios.delete(`/api/drinks/${drinkId}/boozedrinks`)
       .then(console.log("It worked"))
     }
 
@@ -77,45 +82,34 @@ class DrinkView extends React.Component {
     this.setState({ toggleEdit: !this.state.toggleEdit });
   };
 
-
-  // TODO
-  // deleteDrink = (id) => {
-  //   axios.delete(`/api/drinks/${id}`)
-  //     .then(res => {
-  //     this.setState({ drink: this.state.drink.filter(drink => drink.id !== id)})
-  //   })
-  //   return <Redirect to = {{ pathname: "/drinks" }} />;
-    
-  // }
-
-
-
-
-
-
   render() {
-    const { name, history, ingredients, prep_serv} = this.state.drink;
-    // const {boozes_name} = this.state.boozes;
+    const { name, history, ingredients, prep_serv, id, image} = this.state.drink;
+  
     return (
       <div>
         <h1>{name}</h1>
-        <h1>{history}</h1>
-        <h1>{ingredients}</h1>
-        <h1>{prep_serv}</h1>
+        <h2>History</h2>
+        <h3>{history}</h3>
+        <h2>Ingredients</h2>
+        <h3>{ingredients}</h3>
+        <h2>Served In</h2>
+        <h3>{prep_serv}</h3>
+        <img src={image || defaultDrink} />
+        {/* add defaultDrink or drinkimage */}
         {/* <h1>{boozes_name}</h1> */}
         {this.state.toggleEdit ? <DrinkForm drink={this.state.drink} editDrink={this.editDrink} toggleEdit={this.toggle}/> : null}
         <button onClick={ () => this.toggle()}>
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
+       
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
-        
+        <h2> Comments</h2>
+        <Comments drinkId={this.props.match.params.id} />
       </div>
     );
-    debugger
   }
 
 }
-
 
 
 export default DrinkView;

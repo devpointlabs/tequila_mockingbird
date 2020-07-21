@@ -25,7 +25,7 @@ class Api::BoozedrinksController < ApplicationController
 
   def create
     boozedrink = @drink.boozedrinks.new(boozedrink_params)
-    # binding.pry
+
     if boozedrink.save
       render json: boozedrink
     else

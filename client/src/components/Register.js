@@ -39,7 +39,7 @@ class Register extends React.Component {
         }
     }
     verifyCallback(recaptchaToken) {
-      debugger
+      
       // Here you will get the final recaptchaToken!!!  
       console.log(recaptchaToken, "<= your recaptcha token")  
       if(recaptchaToken.length) this.setState({recaptchaSuccessful: true})
