@@ -36,9 +36,11 @@ class DrinkView extends React.Component {
   }
 
   editDrink = (id, drink, checkedBoozes) => {
-    
+
+    let data = new FormData() 
+    data.append('file',drink.file)
     // 1. edit the actual drink
-    axios.put(`/api/drinks/${id}`, drink)
+    axios.put(`/api/drinks/${id}?name=${drink.name}&history=${drink.history}&prep_serv=${drink.prep_serv}&ingredients=${drink.ingredients}`, data)
     .then(res => {
       this.setState({ drink: res.data })
       
@@ -86,9 +88,12 @@ class DrinkView extends React.Component {
     return (
       <div>
         <h1>{name}</h1>
-        <h1>{history}</h1>
-        <h1>{ingredients}</h1>
-        <h1>{prep_serv}</h1>
+        <h2>History</h2>
+        <h3>{history}</h3>
+        <h2>Ingredients</h2>
+        <h3>{ingredients}</h3>
+        <h2>Served In</h2>
+        <h3>{prep_serv}</h3>
         <img src={image || defaultDrink} />
         {/* add defaultDrink or drinkimage */}
         {/* <h1>{boozes_name}</h1> */}
@@ -98,7 +103,7 @@ class DrinkView extends React.Component {
         </button>
        
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
-        <h3> Add an image or comment?</h3>
+        <h2> Comments</h2>
         <Comments drinkId={this.props.match.params.id} />
       </div>
     );

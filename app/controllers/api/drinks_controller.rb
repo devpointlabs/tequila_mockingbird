@@ -19,19 +19,24 @@ class Api::DrinksController < ApplicationController
 
   def update
     drink = Drink.find(params[:id])
+    drink.name = params[:name] ? params[:name] : drink.name
+    drink.history = params[:history] ? params[:history] : drink.history
+    drink.prep_serv = params[:prep_serv] ? params[:prep_serv] : drink.prep_serv
+    drink.ingredients = params[:ingredients] ? params[:ingredients] : drink.ingredients
+    
     file = params[:file]
-
+    binding.pry
     if file
       begin
         ext = File.extname(file.tempfile)
-        cloud_image = Cloudinary::Uploader.uploade(file, public_id: file.orignal_filename, secure: true)
+        cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true)
         drink.image = cloud_image['secure_url']
-      rescue => e
-        render json: { errors: e }, status: 422
+      # rescue => e
+      #   render json: { errors: e }, status: 422
       end
     end
 
-    if drink.update(drink_params)
+    if drink.save
       render json: drink
     else
       render json: { message: "drink not updated"}
@@ -50,6 +55,6 @@ class Api::DrinksController < ApplicationController
 
   private
     def drink_params
-      params.require(:drink).permit(:name, :history, :prep_serv, :ingredients, :file, :image)
+      params.require(:drink).permit(:name, :history, :prep_serv, :ingredients, :image, )
     end
 end

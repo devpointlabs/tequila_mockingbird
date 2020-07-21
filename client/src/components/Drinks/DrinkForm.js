@@ -26,6 +26,7 @@ class DrinkForm extends React.Component {
     history: "",
     ingredients: "",
     prep_serv: "",
+    image: "",
     boozes: [],
     checkedBoozes: [],
     file: ''
@@ -37,13 +38,14 @@ class DrinkForm extends React.Component {
 
   componentDidMount() {
     if (this.props.drink) {
-      const { name, history, ingredients, prep_serv, id, file } = this.props.drink;
+      const { name, history, ingredients, prep_serv, id, file, image } = this.props.drink;
       this.setState({
         name: name,
         history: history,
         ingredients: ingredients,
         prep_serv: prep_serv,
-        file: file
+        file: file,
+        image: image
       });
     }
     // axios call to booze controller index method

@@ -41,7 +41,12 @@ class BoozeView extends React.Component {
     const { name, history, production } = this.state.booze;
     return (
       <div>
-        <h3>{name}</h3> <h3>{history}</h3><h3>{production}</h3>
+        <h1>{name}</h1> 
+
+        <h2>History</h2>
+        <h3>{history}</h3>
+        <h2>Production</h2>
+        <h3>{production}</h3>
 
         {this.state.toggleEdit ? <BoozeForm booze={this.state.booze} editBooze={this.editBooze} toggleEdit={this.toggle}/> : null}
         <button onClick={() => this.toggle()}>
