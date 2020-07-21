@@ -4,6 +4,10 @@ class Api::BoozesController < ApplicationController
     render json: Booze.all
   end
 
+  def booze_drinks
+    render json: Booze.find(params[:id]).drinks
+  end
+
   def show 
     render json: Booze.find(params[:id])
   end

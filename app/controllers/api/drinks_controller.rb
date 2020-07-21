@@ -4,6 +4,11 @@ class Api::DrinksController < ApplicationController
     render json: Drink.all
   end
 
+  def drink_boozes
+    # Might change name?
+    render json: Drink.find(params[:id]).boozes
+  end
+
   def show
     render json: Drink.find(params[:id])
   end
