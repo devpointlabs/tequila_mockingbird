@@ -3,6 +3,8 @@ import React from "react";
 import Booze from "./Booze";
 import BoozeForm from "./BoozeForm";
 import axios from "axios";
+import { AuthConsumer } from '../../providers/AuthProvider';
+import { withRouter } from 'react-router-dom';
 
 class Boozes extends React.Component {
   state = {
@@ -22,7 +24,7 @@ class Boozes extends React.Component {
 
 
   renderBoozes = () =>
-    this.state.boozes.map((aSingleBooze) => <Booze {...aSingleBooze} deleteBooze={this.deleteBooze}/>);
+    this.state.boozes.map((aSingleBooze) => <Booze {...aSingleBooze} deleteBooze={this.deleteBooze} user={this.props.auth.user}/>);
     toggle = () => {
       this.setState({ showForm: !this.state.showForm });
     };
@@ -68,4 +70,17 @@ class Boozes extends React.Component {
 
 // JSX/HTML
 
-export default Boozes;
+
+export class ConnectedBoozes extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {(auth) => <Boozes {...this.props} auth={auth} />}
+      </AuthConsumer>
+      
+    )
+  }
+}
+
+
+export default withRouter(ConnectedBoozes);

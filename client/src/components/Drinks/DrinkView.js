@@ -5,7 +5,8 @@ import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
 import Comments from '../Comment/Comments';
 import CommentForm from '../Comment/CommentForm';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 
 const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
@@ -130,11 +131,22 @@ class DrinkView extends React.Component {
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
         <h2> Comments</h2>
-        <Comments drinkId={this.props.match.params.id} />
+        <Comments drinkId={this.props.match.params.id} user={this.props.auth.user}/>
       </div>
     );
   }
 }
 
 
-export default DrinkView;
+
+export class ConnectedDrinkView extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {(auth) => <DrinkView {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default withRouter(ConnectedDrinkView);

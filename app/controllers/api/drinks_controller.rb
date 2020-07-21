@@ -30,8 +30,8 @@ class Api::DrinksController < ApplicationController
     drink.ingredients = params[:ingredients] ? params[:ingredients] : drink.ingredients
     
     file = params[:file]
-    binding.pry
-    if file
+    # binding.pry
+    if file && file != 'undefined' 
       begin
         ext = File.extname(file.tempfile)
         cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true)

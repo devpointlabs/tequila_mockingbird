@@ -3,19 +3,40 @@ import { Link } from "react-router-dom";
 import Drinks from './Drinks';
 
 
-const Drink = ({ name, history, ingredients, prep_serv, deleteDrink, id}) => {
+const Drink = (props) => {
+  
+  const isAdmin = () => {
+    if (props.user.admin)
+      return (
+        <div>
+
+        <button onClick = {() => props.deleteBooze(props.id)}> Delete</button>
+        <hr />
+          Edit Logs: 
+          <ul>
+          {props.updated_at}
+        </ul>
+        </div>
+        )
+        return null;
+  };
   return (
     <div>
       <ul>
         <li>
-          {name}
-          {history}
-          {ingredients}
-          {prep_serv}
+          {props.name}
+          {props.history}
+          {props.ingredients}
+          {props.prep_serv}
         </li>
-        <Link to={`/drinks/${id}`}>Cocktail Page</Link>
-        <button onClick={() => deleteDrink(id)}>Delete</button>
-     
+        {/* TO DO */}
+        {/* <hr />
+          Edit Logs: 
+        <ul>
+          {updated_at}
+        </ul> */}
+        <Link to={`/drinks/${props.id}`}>Cocktail Page</Link>
+        {props.user ? isAdmin() : null}
       </ul>
     </div>
   );
