@@ -2,6 +2,9 @@ import React from "react";
 import Drink from "./Drink";
 import DrinkForm from "./DrinkForm";
 import axios from "axios";
+import { ConnectedBoozes } from "../Booze/Boozes";
+import { AuthConsumer } from "../../providers/AuthProvider";
+import { withRouter } from "react-router-dom";
 
 class Drinks extends React.Component {
   state = {
@@ -22,7 +25,7 @@ class Drinks extends React.Component {
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
-      <Drink {...drink} deleteDrink={this.deleteDrink} />
+      <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user}/>
     ));
 
   toggle = () => {
@@ -91,4 +94,15 @@ class Drinks extends React.Component {
 
 // JSX/HTML
 
-export default Drinks;
+
+export class ConnectedDrinks extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {(auth) => <Drinks {...this.props} auth={auth} />}
+      </AuthConsumer>
+    );
+  }
+}
+
+export default withRouter(ConnectedDrinks);
