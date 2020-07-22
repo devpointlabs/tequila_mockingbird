@@ -1,16 +1,24 @@
-import React from 'react';
-import axios from 'axios';
-import DrinkForm from './DrinkForm';
-import Dropzone from 'react-dropzone'; //Import Dropzone
-import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
-import Comments from '../Comment/Comments';
-import CommentForm from '../Comment/CommentForm';
+import React from "react";
+import axios from "axios";
+import DrinkForm from "./DrinkForm";
+import Dropzone from "react-dropzone"; //Import Dropzone
+import {
+  Form,
+  Grid,
+  Image,
+  Container,
+  Divider,
+  Header,
+  Button,
+  AccordionPanel,
+} from "semantic-ui-react";
+import Comments from "../Comment/Comments";
+import CommentForm from "../Comment/CommentForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 
-
-const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
-
+const defaultDrink =
+  "https://image.flaticon.com/icons/png/128/3184/3184574.png";
 
 class DrinkView extends React.Component {
   state = {
@@ -18,6 +26,7 @@ class DrinkView extends React.Component {
     toggleEdit: false,
     boozes: [],
     liquor: [],
+    audits: [],
   };
 
   componentDidMount() {
@@ -32,6 +41,9 @@ class DrinkView extends React.Component {
 
     axios.get(`/api/drinks/${id}/boozes`).then((res) => {
       this.setState({ liquor: res.data });
+    });
+    axios.get(`/api/drinks/${id}/audits`).then((res) => {
+      this.setState({ audits: res.data });
     });
     // const { booze_id, drink_id } = this.props.match.params;
     // axios.get(`/api/drinks/${drink_id}/boozedrinks/${booze_id}`).then((res) => {
@@ -94,6 +106,76 @@ class DrinkView extends React.Component {
     ));
   };
 
+  auditChanges = (changes) => {
+    var arr2 = Object.values(changes).map(function (value) {
+      return (
+        <div>
+          Was: "{value[0]}" <br /> Edited to: "{value[1]}"
+        </div>
+      );
+    });
+    return arr2;
+  };
+
+  auditTitle = (changes) => {
+    var arr1 = Object.keys(changes).map(function (key) {
+      return key.charAt(0).toUpperCase() + key.slice(1) + " ";
+      // name.charAt(0).toUpperCase() + name.slice(1);
+    });
+    return arr1;
+  };
+
+  renderAudits = () => {
+    return this.state.audits.map((a) => {
+      // time(a.created_at)
+      return (
+        <div>
+          {/* <Moment format="YYYY/MM/DD"> */}
+          Edited At: {this.dateCreated(a.created_at)}
+          {/* </Moment> */}
+          {/* <p>{this.auditChanges(a.audited_changes).map(thing => <div>Topics Changed: {thing }</div>)}</p> */}
+          <div>
+            Topics Changed: <b>{this.auditTitle(a.audited_changes)}</b>
+          </div>
+          <div>{this.auditChanges(a.audited_changes)}</div>
+          <p></p>
+          <hr />
+        </div>
+      );
+    });
+  };
+
+  isAdmin = () => {
+    if (this.props.auth.user.admin)
+      return (
+        <div>
+          <hr />
+          <h4>Edit Logs</h4>
+          {this.renderAudits()}
+        </div>
+      );
+    return null;
+  };
+
+  dateCreated = (audit) => {
+    //! REFACTOR THIS TO MOMENTJS
+    var date = new Date(audit);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    var days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    let dayOfWeek = days[date.getDay()];
+    let hour = date.getHours();
+    var ampm = hour >= 12 ? "PM" : "AM";
+    let min = date.getMinutes();
+    hour = hour % 12;
+    hour = hour ? hour : 12; // the hour '0' should be '12'
+    min = min < 10 ? "0" + min : min;
+    var strTime = hour + ":" + min + " " + ampm;
+    var fullDate = month + "/" + day + "/" + year;
+    return `${fullDate} at ${strTime} (${dayOfWeek})`;
+  };
+
   render() {
     const {
       name,
@@ -116,6 +198,7 @@ class DrinkView extends React.Component {
         <img src={image || defaultDrink} />
         {/* add defaultDrink or drinkimage */}
         {/* <h1>{boozes_name}</h1> */}
+        {this.props.auth.user ? this.isAdmin() : null}
         {this.state.toggleEdit ? (
           <DrinkForm
             drink={this.state.drink}
@@ -131,13 +214,14 @@ class DrinkView extends React.Component {
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
         <h2> Comments</h2>
-        <Comments drinkId={this.props.match.params.id} user={this.props.auth.user}/>
+        <Comments
+          drinkId={this.props.match.params.id}
+          user={this.props.auth.user}
+        />
       </div>
     );
   }
 }
-
-
 
 export class ConnectedDrinkView extends React.Component {
   render() {

@@ -3,8 +3,8 @@ import Drink from "./Drink";
 import DrinkForm from "./DrinkForm";
 import axios from "axios";
 import { ConnectedBoozes } from "../Booze/Boozes";
-import { AuthConsumer } from "../../providers/AuthProvider";
-import { withRouter } from "react-router-dom";
+import { AuthConsumer } from '../../providers/AuthProvider';
+import { withRouter } from 'react-router-dom';
 
 class Drinks extends React.Component {
   state = {
@@ -25,7 +25,7 @@ class Drinks extends React.Component {
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
-      <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user}/>
+      <Drink {...drink} deleteDrink={this.deleteDrink} />
     ));
 
   toggle = () => {

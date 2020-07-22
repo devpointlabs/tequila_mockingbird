@@ -36,6 +36,10 @@ end
     render json: { message: "Destroyed the BOOZE!" }
   end
 
+  def booze_audits
+    render json:  Booze.find(params[:id]).audits
+  end
+
   private
 
   def booze_params
