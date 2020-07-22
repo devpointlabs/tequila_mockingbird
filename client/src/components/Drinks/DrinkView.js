@@ -107,6 +107,9 @@ class DrinkView extends React.Component {
   };
 
   auditChanges = (changes) => {
+    // Grabs the values changed from the changes object and maps through all the values changed
+    // Audit magic grabs previous one, and current one. One === value
+    // There was only two values in an array so we just grab the index of each.
     var arr2 = Object.values(changes).map(function (value) {
       return (
         <div>
@@ -118,7 +121,9 @@ class DrinkView extends React.Component {
   };
 
   auditTitle = (changes) => {
+    // Grabs the key from the changes object and maps through all the keys changed
     var arr1 = Object.keys(changes).map(function (key) {
+      // Makes first letter of each string a capital letter
       return key.charAt(0).toUpperCase() + key.slice(1) + " ";
       // name.charAt(0).toUpperCase() + name.slice(1);
     });
@@ -138,7 +143,6 @@ class DrinkView extends React.Component {
             Topics Changed: <b>{this.auditTitle(a.audited_changes)}</b>
           </div>
           <div>{this.auditChanges(a.audited_changes)}</div>
-          <p></p>
           <hr />
         </div>
       );
