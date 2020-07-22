@@ -3,8 +3,11 @@ import axios from "axios";
 import BoozeForm from "./BoozeForm";
 import { Link } from 'react-router-dom'
 
+const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 class BoozeView extends React.Component {
-  state = { booze: {}, toggleEdit: false, drinks: [] };
+  state = { booze: {}, 
+  toggleEdit: false, 
+  drinks: [] };
 
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -18,7 +21,9 @@ class BoozeView extends React.Component {
   }
 
   editBooze = (id, booze) => {
-    axios.put(`/api/boozes/${id}`, booze)
+    let data = new FormData();
+    data.append("file", drink.file);
+    axios.put(`/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`, data)
       .then(res => {
         this.setState({booze: res.data})
     })

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_014957) do
+ActiveRecord::Schema.define(version: 2020_07_22_025921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_014957) do
     t.text "production"
     t.text "history"
     t.boolean "is_checked"
+    t.string "image"
   end
 
   create_table "comments", force: :cascade do |t|

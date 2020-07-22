@@ -1,13 +1,40 @@
 import React from "react";
 import Booze from "./Booze";
+import axios from "axios";
+import Dropzone from 'react-dropzone'; //Import Dropzone
+import { Form, Grid } from 'semantic-ui-react';
 
+const defaulBooze = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
+
+const styles = {
+  dropzone: {
+    height: "150px",
+    width: "150px",
+    border: "1px dashed black",
+    borderRadius: "5px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "10px",
+  },
+}
 class BoozeForm extends React.Component {
-  state = { name: "", production: "", history: "", is_checked: false };
+  state = {
+    name: "",
+    production: "",
+    history: "",
+    is_checked: false,
+    file: ''
+  };
 
   componentDidMount() {
     if (this.props.booze) {
-      const {  name, production, history } = this.props.booze;
-      this.setState({ name: name, production: production, history: history });
+      const { name, production, history, file, image } = this.props.booze;
+      this.setState({ name: name, 
+        production: production, 
+        history: history, 
+        file: file,
+        image: image});
     }
   }
 
@@ -17,9 +44,10 @@ class BoozeForm extends React.Component {
   };
 
   handleSubmit = (e) => {
-    
+
     e.preventDefault();
 
+    // May need to change something here
     if (this.props.booze) {
       const { id } = this.props.booze;
       this.props.editBooze(id, this.state);
@@ -29,6 +57,35 @@ class BoozeForm extends React.Component {
       this.props.toggleForm();
     }
   };
+
+  dropZone = () => {
+    const { file, } = this.state;
+    return(
+      <Form onSubmit={this.handleSubmit}>
+        <Grid.Column width={4}>
+          <Dropzone
+            onDrop={this.onDrop}
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps, isDragActive }) => {
+              return (
+                <div
+                  {...getRootProps()}
+                  style={styles.dropzone}
+                >
+                  <input {...getInputProps()} />
+                  {
+                    isDragActive ?
+                      <p>Drop files here...</p> :
+                      <p>Try dropping some files here, or click to select files to upload.</p>
+                  }
+                </div>
+              )
+            }}
+          </Dropzone>
+        </Grid.Column>
+      </Form>
+    )}
 
   render() {
     const { name, production, history } = this.state;
@@ -46,12 +103,15 @@ class BoozeForm extends React.Component {
           value={production}
           onChange={this.handleChange}
         />
-          <input
+        <input
           placeholder="History"
           name="history"
           value={history}
           onChange={this.handleChange}
         />
+        <div>
+        {this.props.drink ? this.dropZone() : ""}
+        </div>
         <button>Submit</button>
       </form>
     );
