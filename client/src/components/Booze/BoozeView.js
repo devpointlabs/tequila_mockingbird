@@ -27,25 +27,28 @@ class BoozeView extends React.Component {
 
   editBooze = (id, booze) => {
     let data = new FormData();
+    debugger
     data.append("file", booze.file);
-    axios.put(`/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`, 
-    data
+    axios
+    .put(
+      `/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`, 
+      data
     )
     .then((res) => {
-      this.setState({ booze: res.data });
+      this.setState({ booze: res.data, });
     });
 
   };
 
-  updateTodo = (id) => {
-    axios.put(`/api/booze/${id}`).then((res) => {
-      const todos = this.state.todos.map((t) => {
-        if (t.id === id) return res.data;
-        return t;
-      });
-      this.setState({ todos });
-    });
-  };
+  // updateTodo = (id) => {
+  //   axios.put(`/api/booze/${id}`).then((res) => {
+  //     const todos = this.state.todos.map((t) => {
+  //       if (t.id === id) return res.data;
+  //       return t;
+  //     });
+  //     this.setState({ todos });
+  //   });
+  // };
 
   toggle = () => {
     this.setState({ toggleEdit: !this.state.toggleEdit });

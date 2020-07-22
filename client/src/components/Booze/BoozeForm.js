@@ -4,7 +4,7 @@ import axios from "axios";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid } from 'semantic-ui-react';
 
-const defaulBooze = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
+const defaultBooze = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 
 const styles = {
   dropzone: {
@@ -24,17 +24,24 @@ class BoozeForm extends React.Component {
     production: "",
     history: "",
     is_checked: false,
-    file: ''
+    file: '',
+    image: ''
   };
+
+  onDrop = (files) => {
+    this.setState({file: files[0] });
+  }
 
   componentDidMount() {
     if (this.props.booze) {
       const { name, production, history, file, image } = this.props.booze;
-      this.setState({ name: name, 
+      this.setState({ 
+        name: name, 
         production: production, 
         history: history, 
         file: file,
-        image: image});
+        image: image
+      });
     }
   }
 
@@ -49,7 +56,7 @@ class BoozeForm extends React.Component {
 
     // May need to change something here
     if (this.props.booze) {
-      const { name, history, production, file } = this.props.booze;
+      const { name, history, production, file } = this.state;
       this.props.editBooze(
         this.props.booze.id,
         { 
