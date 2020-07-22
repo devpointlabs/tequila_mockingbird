@@ -1,24 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Drinks from './Drinks';
-
+import Drinks from "./Drinks";
 
 const Drink = (props) => {
-  
   const isAdmin = () => {
     if (props.user.admin)
       return (
-        <div>
-
-        <button onClick = {() => props.deleteBooze(props.id)}> Delete</button>
-        <hr />
-          Edit Logs: 
-          <ul>
-          {props.updated_at}
-        </ul>
-        </div>
-        )
-        return null;
+        <button onClick={() => props.deleteDrink(props.id)}> Delete</button>
+      );
+    return null;
   };
   return (
     <div>

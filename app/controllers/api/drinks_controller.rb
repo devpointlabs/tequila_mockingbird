@@ -58,6 +58,10 @@ class Api::DrinksController < ApplicationController
     render json: { mesage: 'boozedrink Deleted'}
   end
 
+  def drink_audits
+    render json:  Drink.find(params[:id]).audits
+  end
+
   private
     def drink_params
       params.require(:drink).permit(:name, :history, :prep_serv, :ingredients, :image, )

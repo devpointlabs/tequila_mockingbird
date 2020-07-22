@@ -27,6 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 gem "devise_token_auth"
 gem 'cloudinary'
+gem "audited", "~> 4.9"
 
 group :development, :test do
   gem "pry-rails"
