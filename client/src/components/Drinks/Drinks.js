@@ -24,7 +24,7 @@ class Drinks extends React.Component {
   
 
   renderDrinks = () =>
-    this.state.drinks.map((drink) => (
+      this.state.drinks.map((drink) => (
       <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user}/>
     ));
 
@@ -73,6 +73,7 @@ class Drinks extends React.Component {
   render() {
     // DECONSTRUCTION
     const { drinks, toggleForm } = this.state;
+
     return (
       <div>
         <h1>Hammered</h1>

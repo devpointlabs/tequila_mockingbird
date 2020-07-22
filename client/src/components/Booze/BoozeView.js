@@ -71,8 +71,8 @@ toggle = () => {
         <button onClick={() => this.toggle()}>
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
-
-       
+      <hr/>
+      <h2>{name} Cocktails</h2>
       {this.renderDrinks()}
       </div>
     );

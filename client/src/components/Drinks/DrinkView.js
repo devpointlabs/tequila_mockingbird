@@ -128,6 +128,7 @@ class DrinkView extends React.Component {
         </button>
 
         <hr />
+        <h2>Contains:</h2>
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
         <h2> Comments</h2>
