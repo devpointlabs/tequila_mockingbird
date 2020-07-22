@@ -98,6 +98,17 @@ class BoozeView extends React.Component {
       );
     return null;
   };
+  
+  isAdminButton = () => {
+    if (this.props.auth.user.admin)
+      return (
+        <button onClick={() => this.toggle()}>
+          {this.state.toggleEdit ? "Close Form" : "Edit"}
+        </button>
+      );
+    return null;
+    
+  }
 
   dateCreated = (audit) => {
     //! REFACTOR THIS TO MOMENTJS
@@ -137,9 +148,8 @@ class BoozeView extends React.Component {
             toggleEdit={this.toggle}
           />
         ) : null}
-        <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit"}
-        </button>
+        {this.props.auth.user ? this.isAdminButton() : null}
+        
 
         {this.renderDrinks()}
       </div>
