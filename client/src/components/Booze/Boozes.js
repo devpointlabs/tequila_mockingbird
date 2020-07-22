@@ -3,15 +3,14 @@ import React from "react";
 import Booze from "./Booze";
 import BoozeForm from "./BoozeForm";
 import axios from "axios";
-import { AuthConsumer } from '../../providers/AuthProvider';
-import { withRouter } from 'react-router-dom';
+import { AuthConsumer } from "../../providers/AuthProvider";
+import { withRouter } from "react-router-dom";
 
 class Boozes extends React.Component {
   state = {
     boozes: [],
     showForm: false,
   };
-
 
   componentDidMount() {
     axios
@@ -22,13 +21,18 @@ class Boozes extends React.Component {
       .catch(console.log("Party Foul"));
   }
 
-
   renderBoozes = () =>
-    this.state.boozes.map((aSingleBooze) => <Booze {...aSingleBooze} deleteBooze={this.deleteBooze} user={this.props.auth.user}/>);
-    toggle = () => {
-      this.setState({ showForm: !this.state.showForm });
-    };
-  
+    this.state.boozes.map((aSingleBooze) => (
+      <Booze
+        {...aSingleBooze}
+        deleteBooze={this.deleteBooze}
+        user={this.props.auth.user}
+      />
+    ));
+  toggle = () => {
+    this.setState({ showForm: !this.state.showForm });
+  };
+
   //! CRUD ACTIONS
 
   addBooze = (newBooze) => {
@@ -39,12 +43,17 @@ class Boozes extends React.Component {
   };
 
   deleteBooze = (id) => {
-    axios.delete(`/api/boozes/${id}`)
-      .then(res => {
-      this.setState({ boozes: this.state.boozes.filter(booze => booze.id !== id)})
-    })
-  }
+    axios.delete(`/api/boozes/${id}`).then((res) => {
+      this.setState({
+        boozes: this.state.boozes.filter((booze) => booze.id !== id),
+      });
+    });
+  };
 
+  isAdmin = () => {
+    if (!this.props.auth.user.admin) return null;
+    return <button onClick={() => this.toggle()}>Toggle Add Form</button>;
+  };
 
   render() {
     // DECONSTRUCTION
@@ -56,9 +65,9 @@ class Boozes extends React.Component {
           {showForm ? (
             <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
           ) : (
-            <div>No Form</div>
+            null
           )}
-          <button onClick={() => this.toggle()}>Toggle Add Form</button>
+          {this.props.auth.user ? this.isAdmin() : null}
         </div>
         {this.renderBoozes()}
       </div>
@@ -70,17 +79,14 @@ class Boozes extends React.Component {
 
 // JSX/HTML
 
-
 export class ConnectedBoozes extends React.Component {
   render() {
     return (
       <AuthConsumer>
         {(auth) => <Boozes {...this.props} auth={auth} />}
       </AuthConsumer>
-      
-    )
+    );
   }
 }
-
 
 export default withRouter(ConnectedBoozes);
