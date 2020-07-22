@@ -3,8 +3,8 @@ import Drink from "./Drink";
 import DrinkForm from "./DrinkForm";
 import axios from "axios";
 import { ConnectedBoozes } from "../Booze/Boozes";
-import { AuthConsumer } from '../../providers/AuthProvider';
-import { withRouter } from 'react-router-dom';
+import { AuthConsumer } from "../../providers/AuthProvider";
+import { withRouter } from "react-router-dom";
 
 class Drinks extends React.Component {
   state = {
@@ -21,11 +21,10 @@ class Drinks extends React.Component {
       })
       .catch(console.log("Woopsie"));
   }
-  
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
-      <Drink {...drink} deleteDrink={this.deleteDrink} />
+      <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user}/>
     ));
 
   toggle = () => {
@@ -44,15 +43,12 @@ class Drinks extends React.Component {
 
   addBoozeDrink = (drinkId, checkedBoozes) => {
     // assuming our create is normal
-    const promiseBoozeArray = checkedBoozes.map(cb => {
+    const promiseBoozeArray = checkedBoozes.map((cb) => {
       return axios.post(`/api/drinks/${drinkId}/boozedrinks`, {
         booze_id: cb.id,
-      })  
-    })
-    Promise.all(promiseBoozeArray)
-      .catch(
-      console.log("oopsie woopsie")
-    )
+      });
+    });
+    Promise.all(promiseBoozeArray).catch(console.log("oopsie woopsie"));
 
     // Backend mumbo jumbo
     // axios
@@ -70,6 +66,11 @@ class Drinks extends React.Component {
     });
   };
 
+  isAdminButton = () => {
+    if (this.props.auth.user.admin)
+      return <button onClick={() => this.toggle()}>Toggle Add Form</button>;
+  };
+
   render() {
     // DECONSTRUCTION
     const { drinks, toggleForm } = this.state;
@@ -79,13 +80,11 @@ class Drinks extends React.Component {
         <div>
           {toggleForm ? (
             <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-          ) : (
-            <div>No Form</div>
-          )}
-          <button onClick={() => this.toggle()}>Toggle Add Form</button>
+          ) : null}
+          {this.props.auth.user ? this.isAdminButton() : null}
         </div>
         {this.renderDrinks()}
-      </div> 
+      </div>
     );
   }
 }
@@ -93,7 +92,6 @@ class Drinks extends React.Component {
 // FUNCTIONS
 
 // JSX/HTML
-
 
 export class ConnectedDrinks extends React.Component {
   render() {

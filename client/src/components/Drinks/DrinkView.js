@@ -131,6 +131,7 @@ class DrinkView extends React.Component {
   };
 
   renderAudits = () => {
+    if (this.state.audits.length === 0) return null
     return this.state.audits.map((a) => {
       // time(a.created_at)
       return (
@@ -180,6 +181,15 @@ class DrinkView extends React.Component {
     return `${fullDate} at ${strTime} (${dayOfWeek})`;
   };
 
+  isAdminButton = () => {
+    if (this.props.auth.user.admin)
+      return (
+        <button onClick={() => this.toggle()}>
+          {this.state.toggleEdit ? "Close Form" : "Edit"}
+        </button>
+      );
+  };
+
   render() {
     const {
       name,
@@ -210,10 +220,7 @@ class DrinkView extends React.Component {
             toggleEdit={this.toggle}
           />
         ) : null}
-        <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit"}
-        </button>
-
+        {this.props.auth.user ? this.isAdminButton() : null}
         <hr />
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
