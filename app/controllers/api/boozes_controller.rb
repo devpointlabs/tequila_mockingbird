@@ -28,7 +28,7 @@ end
     booze.production = params[:production] ? params[:production] : booze.production
     
     file = params[:file]
-    # binding.pry
+    
     if file && file != 'undefined' 
       begin
         ext = File.extname(file.tempfile)
@@ -58,7 +58,7 @@ end
   private
 
   def booze_params
-    params.require(:booze).permit(:name, :production, :history, :is_checked, "image")
+    params.require(:booze).permit(:name, :production, :history, :is_checked, :image,)
   end
 
 end

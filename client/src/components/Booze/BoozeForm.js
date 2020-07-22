@@ -49,11 +49,27 @@ class BoozeForm extends React.Component {
 
     // May need to change something here
     if (this.props.booze) {
-      const { id } = this.props.booze;
-      this.props.editBooze(id, this.state);
+      const { name, history, production, file } = this.props.booze;
+      this.props.editBooze(
+        this.props.booze.id,
+        { 
+          name: name,
+          history: history,
+          production: production,
+          file: file,
+        }
+        );
       this.props.toggleEdit();
     } else {
-      this.props.add(this.state);
+      const { name, history, production, file } = this.state;
+      this.props.add(
+        { 
+          name: name,
+          history: history,
+          production: production,
+          file: file,
+        }
+      );
       this.props.toggleForm();
     }
   };
@@ -88,7 +104,7 @@ class BoozeForm extends React.Component {
     )}
 
   render() {
-    const { name, production, history } = this.state;
+    const { name, production, history, image } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <input
@@ -110,7 +126,7 @@ class BoozeForm extends React.Component {
           onChange={this.handleChange}
         />
         <div>
-        {this.props.drink ? this.dropZone() : ""}
+        {this.props.booze ? this.dropZone() : ""}
         </div>
         <button>Submit</button>
       </form>

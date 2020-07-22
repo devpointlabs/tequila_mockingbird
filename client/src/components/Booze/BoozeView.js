@@ -4,7 +4,10 @@ import BoozeForm from "./BoozeForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 
-const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
+const defaultBooze = 'https://image.flaticon.com/icons/svg/920/920605.svg';
+
+
+
 class BoozeView extends React.Component {
 
   state = { booze: {}, toggleEdit: false, drinks: [], audits: [] };
@@ -23,8 +26,12 @@ class BoozeView extends React.Component {
   }
 
   editBooze = (id, booze) => {
-
-    axios.put(`/api/boozes/${id}`, booze).then((res) => {
+    let data = new FormData();
+    data.append("file", booze.file);
+    axios.put(`/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`, 
+    data
+    )
+    .then((res) => {
       this.setState({ booze: res.data });
     });
 
@@ -134,7 +141,7 @@ class BoozeView extends React.Component {
   };
 
   render() {
-    const { name, history, production } = this.state.booze;
+    const { name, history, production, image } = this.state.booze;
     return (
       <div>
         <h1>{name}</h1>
@@ -143,6 +150,7 @@ class BoozeView extends React.Component {
         <h3>{history}</h3>
         <h2>Production</h2>
         <h3>{production}</h3>
+        <img src={image || defaultBooze} />
         {this.props.auth.user ? this.isAdmin() : null}
 
         {this.state.toggleEdit ? (
@@ -156,6 +164,10 @@ class BoozeView extends React.Component {
         
 
         {this.renderDrinks()}
+
+        <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" 
+        title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 
+        title="Flaticon">www.flaticon.com</a></div>
       </div>
     );
   }
