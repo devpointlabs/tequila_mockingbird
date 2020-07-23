@@ -4,12 +4,9 @@ import BoozeForm from "./BoozeForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 
-const defaultBooze = 'https://image.flaticon.com/icons/svg/920/920605.svg';
-
-
+const defaultBooze = "https://image.flaticon.com/icons/svg/920/920605.svg";
 
 class BoozeView extends React.Component {
-
   state = { booze: {}, toggleEdit: false, drinks: [], audits: [] };
 
   componentDidMount() {
@@ -27,17 +24,15 @@ class BoozeView extends React.Component {
 
   editBooze = (id, booze) => {
     let data = new FormData();
-    debugger
     data.append("file", booze.file);
     axios
-    .put(
-      `/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`, 
-      data
-    )
-    .then((res) => {
-      this.setState({ booze: res.data, });
-    });
-
+      .put(
+        `/api/boozes/${id}?name=${booze.name}&history=${booze.history}&production=${booze.production}`,
+        data
+      )
+      .then((res) => {
+        this.setState({ booze: res.data });
+      });
   };
 
   // updateTodo = (id) => {
@@ -63,6 +58,9 @@ class BoozeView extends React.Component {
   };
 
   auditChanges = (changes) => {
+    if (changes.image === null) {
+      changes.image = defaultBooze;
+    }
     var arr2 = Object.values(changes).map(function (value) {
       return (
         <div>
@@ -74,6 +72,9 @@ class BoozeView extends React.Component {
   };
 
   auditTitle = (changes) => {
+    if (changes.image === null) {
+      changes.image = defaultBooze;
+    }
     var arr1 = Object.keys(changes).map(function (key) {
       return key.charAt(0).toUpperCase() + key.slice(1) + " ";
       // name.charAt(0).toUpperCase() + name.slice(1);
@@ -112,7 +113,7 @@ class BoozeView extends React.Component {
       );
     return null;
   };
-  
+
   isAdminButton = () => {
     if (this.props.auth.user.admin)
       return (
@@ -121,8 +122,7 @@ class BoozeView extends React.Component {
         </button>
       );
     return null;
-    
-  }
+  };
 
   dateCreated = (audit) => {
     //! REFACTOR THIS TO MOMENTJS
@@ -164,13 +164,19 @@ class BoozeView extends React.Component {
           />
         ) : null}
         {this.props.auth.user ? this.isAdminButton() : null}
-        
 
         {this.renderDrinks()}
 
-        <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" 
-        title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 
-        title="Flaticon">www.flaticon.com</a></div>
+        <div>
+          Icons made by{" "}
+          <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+            Freepik
+          </a>{" "}
+          from{" "}
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+          </a>
+        </div>
       </div>
     );
   }

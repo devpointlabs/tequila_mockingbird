@@ -13,12 +13,16 @@ class Boozes extends React.Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/api/boozes")
-      .then((res) => {
-        this.setState({ boozes: res.data });
-      })
-      .catch(console.log("Party Foul"));
+    if (this.props.boozesSearch) {
+      this.setState({ boozes: this.props.boozesSearch });
+    } else {
+      axios
+        .get("/api/boozes")
+        .then((res) => {
+          this.setState({ boozes: res.data });
+        })
+        .catch(console.log("Party Foul"));
+    }
   }
 
   renderBoozes = () =>
@@ -60,13 +64,15 @@ class Boozes extends React.Component {
     const { boozes, showForm } = this.state;
     return (
       <div>
-        <h1>Hello Booze World</h1>
+        {this.props.boozesSearch ? (
+          <h3>Booze Results</h3>
+        ) : (
+          <h3>Hello Booze World</h3>
+        )}
         <div>
           {showForm ? (
             <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
-          ) : (
-            null
-          )}
+          ) : null}
           {this.props.auth.user ? this.isAdmin() : null}
         </div>
         {this.renderBoozes()}

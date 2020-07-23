@@ -14,13 +14,18 @@ class Drinks extends React.Component {
   };
 
   componentDidMount() {
-    axios
+    if (this.props.drinksSearch) {
+      this.setState({drinks: this.props.drinksSearch})
+    } else {
+
+      axios
       .get("/api/drinks")
       .then((res) => {
         this.setState({ drinks: res.data });
       })
       .catch(console.log("Woopsie"));
-  }
+    }
+    }
 
   renderDrinks = () =>
     this.state.drinks.map((drink) => (
@@ -69,19 +74,27 @@ class Drinks extends React.Component {
   isAdminButton = () => {
     if (this.props.auth.user.admin)
       return <button onClick={() => this.toggle()}>Toggle Add Form</button>;
-  };
-
-  render() {
-    // DECONSTRUCTION
+    };
+    
+    render() {
+      // DECONSTRUCTION
     const { drinks, toggleForm } = this.state;
     return (
       <div>
-        <h1>Hammered</h1>
+        {this.props.drinksSearch ? (
+          <h3>Drink Results</h3>
+        ): (
+          
+          <h1>Drinks</h1>
+          )}
         <div>
           {toggleForm ? (
             <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
           ) : null}
-          {this.props.auth.user ? this.isAdminButton() : null}
+          {this.props.drinksSearch ? null :
+            <button onClick={() => this.toggle()}>Toggle Add Form</button>
+          }
+          {/* {this.props.auth.user ? this.isAdminButton() : null} */}
         </div>
         {this.renderDrinks()}
       </div>
