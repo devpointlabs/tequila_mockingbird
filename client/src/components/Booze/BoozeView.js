@@ -24,7 +24,6 @@ class BoozeView extends React.Component {
 
   editBooze = (id, booze) => {
     let data = new FormData();
-    debugger;
     data.append("file", booze.file);
     axios
       .put(
