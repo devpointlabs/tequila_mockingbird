@@ -29,6 +29,7 @@ class SearchBar extends React.Component {
   clearSearch = (searchValue) => {
     if (searchValue === "") {
       this.setState({ drinks: [] });
+      this.setState({ boozes: [] });
       this.setState({ searched: false });
     }
   };
@@ -36,8 +37,8 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <Form>
           {/* Search Me */}
+        <Form>
           <Input
             placeholder="Search for..."
             onChange={this.handleSearchChange}
@@ -48,6 +49,9 @@ class SearchBar extends React.Component {
             Search
           </Button>
         </Form>
+
+
+        {/* RESULTS */}
         {this.state.searched ? (
           this.state.drinks.length > 0 ? (
             <Drinks drinksSearch={this.state.drinks} />
@@ -55,6 +59,8 @@ class SearchBar extends React.Component {
             "No Drinks found"
           )
         ) : null}
+
+        
         {this.state.searched ? (
           this.state.boozes.length > 0 ? (
             <Boozes boozesSearch={this.state.boozes} />

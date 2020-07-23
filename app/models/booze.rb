@@ -5,12 +5,12 @@ class Booze < ApplicationRecord
   audited
 
 
-  def self.search_boozes(name, history)
+  def self.search_boozes(name, production, history)
      find_by_sql(["
      SELECT *
      FROM boozes
-     WHERE LOWER(name) LIKE LOWER(?) OR LOWER(history) LIKE LOWER(?)
+     WHERE LOWER(name) LIKE LOWER(?) OR LOWER(production) LIKE LOWER(?) OR LOWER(history) LIKE LOWER(?)
      ORDER BY updated_at DESC
-     ", "%#{name}%", "%#{history}%"])
+     ", "%#{name}%", "%#{production}%", "%#{history}%"])
    end
 end

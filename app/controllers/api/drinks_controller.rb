@@ -59,12 +59,12 @@ class Api::DrinksController < ApplicationController
   end
 
   def drink_audits
-    render json:  Drink.find(params[:id]).audits
+    render json:  Drink.find(params[:id]).audits.order('id ASC').reorder('created_at DESC')
   end
 
    def search_drinks
     # binding.pry
-     render json: Drink.search_drinks(params[:search], params[:search])
+     render json: Drink.search_drinks(params[:search], params[:search], params[:search], params[:search])
    end
 
   private

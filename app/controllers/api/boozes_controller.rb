@@ -41,7 +41,7 @@ end
   end
 
   def search_boozes
-     render json: Booze.search_boozes(params[:search], params[:search])
+     render json: Booze.search_boozes(params[:search], params[:search], params[:search])
    end
 
   private
