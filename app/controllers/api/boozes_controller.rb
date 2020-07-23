@@ -40,6 +40,10 @@ end
     render json:  Booze.find(params[:id]).audits
   end
 
+  def search_boozes
+     render json: Booze.search_boozes(params[:search], params[:search])
+   end
+
   private
 
   def booze_params

@@ -19,6 +19,8 @@ import BoozeView from "./components/Booze/BoozeView";
 import Profile from "./components/Profile"
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
+import SearchBar from './components/Search/SearchBar';
+
 
 const App = () => (
   <Fragment>
@@ -35,7 +37,9 @@ const App = () => (
         <Route exact path="/drinks/:id" component={DrinkView} />
 
         <Route exact path='/boozes' component={Boozes}/>
-        <Route exact path='/boozes/:id' component={BoozeView}/>
+          <Route exact path='/boozes/:id' component={BoozeView} />
+          
+        <Route exact path='/search' component={SearchBar}/>
 
         <Route component={NoMatch} />
       </Switch>

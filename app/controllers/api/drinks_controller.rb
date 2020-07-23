@@ -62,6 +62,11 @@ class Api::DrinksController < ApplicationController
     render json:  Drink.find(params[:id]).audits
   end
 
+   def search_drinks
+    # binding.pry
+     render json: Drink.search_drinks(params[:search], params[:search])
+   end
+
   private
     def drink_params
       params.require(:drink).permit(:name, :history, :prep_serv, :ingredients, :image, )
