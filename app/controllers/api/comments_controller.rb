@@ -11,7 +11,7 @@ class Api::CommentsController < ApplicationController
 
     file = params[:file]
 
-    if file
+    if file && file != 'undefined' 
       begin
         ext = File.extname(file.tempfile)
         cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true)
@@ -48,6 +48,11 @@ def update
   else
     render json: { errors: user.errors.full_messages }, status: 422
   end
+end
+
+def destroy
+  @comment.destroy
+  render json: { mesage: 'Comment Deleted'}
 end
 
 

@@ -7,6 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # boozes = ['vodka', 'tequila', 'whiskey']
+User.create(
+  # all the stuff
+  # Add a admin column to user through a migration - boolean
+  # seed this user with the admin value as true
+  name: 'Mumbo Jumbo',
+  email: 'admin@tm.com',
+  password: 'password',
+  admin:  true
+)
 
 booze = Booze.create(
   name: 'vodka',

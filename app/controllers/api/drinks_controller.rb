@@ -4,6 +4,11 @@ class Api::DrinksController < ApplicationController
     render json: Drink.all
   end
 
+  def drink_boozes
+    # Might change name?
+    render json: Drink.find(params[:id]).boozes
+  end
+
   def show
     render json: Drink.find(params[:id])
   end
@@ -25,8 +30,8 @@ class Api::DrinksController < ApplicationController
     drink.ingredients = params[:ingredients] ? params[:ingredients] : drink.ingredients
     
     file = params[:file]
-    binding.pry
-    if file
+  
+    if file && file != 'undefined' 
       begin
         ext = File.extname(file.tempfile)
         cloud_image = Cloudinary::Uploader.upload(file, public_id: file.original_filename, secure: true)
@@ -52,6 +57,15 @@ class Api::DrinksController < ApplicationController
     Drink.find(params[:id]).boozedrinks.destroy_all
     render json: { mesage: 'boozedrink Deleted'}
   end
+
+  def drink_audits
+    render json:  Drink.find(params[:id]).audits.order('id ASC').reorder('created_at DESC')
+  end
+
+   def search_drinks
+    # binding.pry
+     render json: Drink.search_drinks(params[:search], params[:search], params[:search], params[:search])
+   end
 
   private
     def drink_params

@@ -27,10 +27,37 @@ class Comments extends React.Component {
     this.state.comments.map((comment) => (
       <div>
         {comment.review}{comment.image}
+        {/* Adming */}
+        {this.props.user ? 
+        this.isAdmin(comment.id) : null
+      }
       </div>
     ))
   )
-};
+  };
+
+  
+  isAdmin = (id) => {
+    if (this.props.user.admin)
+    return <button onClick={() => this.deleteComment(id)}>Delete</button>
+    return null;
+  }
+  
+  
+  deleteComment = (id) => {
+    axios.delete(`/api/drinks/${this.props.drinkId}/comments/${id}`)
+      .then(res => {
+        this.setState({
+          comments: this.state.comments.filter(c => {
+            return (
+              
+              c.id !== id
+              )
+          })
+        })
+    })
+  }
+
 
 //! CRUD ACTIONS
 

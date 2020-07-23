@@ -2,7 +2,7 @@
 
 class User < ActiveRecord::Base
   has_many :reviews, through: :boozedrinks
-
+  
   extend Devise::Models
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

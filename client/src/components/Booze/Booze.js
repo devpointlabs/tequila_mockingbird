@@ -2,16 +2,24 @@ import React from "react";
 // import "../../../App.css";
 import { Link } from "react-router-dom";
 
-const Booze = ({ name, production, history, id, deleteBooze }) => {
+const Booze = ({ name, production, history, id, deleteBooze, user }) => {
+
+  const isAdmin = () => {
+    if (user.admin) return <button onClick={() => deleteBooze(id)}>Delete</button>
+    return null;
+  }
+  
   return (
     <div>
       <ul>
-         <h1>{name}</h1>  
+        <h1>{name}</h1>
         <li>
-        {production} {history}
+          {production} {history}
         </li>
         <Link to={`/boozes/${id}`}>Booze Page</Link>
-        <button onClick={() => deleteBooze(id)}>Delete</button>
+        {user ? (
+          isAdmin()
+        ) : null}
       </ul>
     </div>
   );

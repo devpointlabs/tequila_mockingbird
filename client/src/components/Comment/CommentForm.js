@@ -40,6 +40,7 @@ class CommentForm extends React.Component {
     e.preventDefault();
 
     this.props.add(this.state);
+    this.setState({review: ''})
   };
 
 
@@ -55,6 +56,7 @@ editImage = () => {
           name="review"
           value={review}
           onChange={this.handleChange}
+          required
         />
       </Grid.Column>
       <Grid.Column width={4}>
