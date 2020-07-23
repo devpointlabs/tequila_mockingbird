@@ -30,5 +30,10 @@ Rails.application.routes.draw do
     # DRINK AUDITS
     get '/drinks/:id/audits', to: 'drinks#drink_audits', as: 'drink_audits'
     get '/boozes/:id/audits', to: 'boozes#booze_audits', as: 'booze_audits'
+
+    # SearchBar
+    get "search_drinks", to: "drinks#search_drinks"
+    get "search_boozes", to: "boozes#search_boozes"
+
   end
 end

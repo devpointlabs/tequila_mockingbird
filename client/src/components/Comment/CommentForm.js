@@ -1,7 +1,10 @@
 import React from "react";
-import Comments from "./Comments";
-import Dropzone from 'react-dropzone'; //Import Dropzone
+// import Comments from "./Comments";
+// import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const styles = {
   dropzone: {
@@ -16,12 +19,13 @@ const styles = {
   },
 }
 
-class CommentForm extends React.Component {
-  state = { review: "", formValues: { file: '' }};
+// const EditorComponent = () => <Editor />
 
-  onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0], } });
-  }
+class CommentForm extends React.Component {
+  state = { 
+    review: '',
+    editorState: EditorState.createEmpty()
+  };
 
   componentDidMount() {
     if (this.props.comment) {
@@ -30,11 +34,16 @@ class CommentForm extends React.Component {
     }
   }
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+  // handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   this.setState({ [name]: value });
+  // };
 
+  onEditorStateChange = (e,review) => {
+    this.setState({
+      review,
+    });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -45,41 +54,29 @@ class CommentForm extends React.Component {
 
 
 editImage = () => {
-  const { review, formValues:{file}} = this.state;
+  const {review, editorState} = this.state;
   return (
     <Form onSubmit={this.handleSubmit}>
       <Grid.Column width={6}>
 
 
-        <input
+        <Editor
+          editorState={editorState}
+          review={review}
+          toolbarClassName="toolbarClassName"
+          wrapperClassName="wrapperClassName"
+          editorClassName="editorClassName"
+          name="review"
+          value={review}
+          onEditorStateChange={this.onEditorStateChange}
+        />
+        {/* <input
           placeholder="Comment"
           name="review"
           value={review}
           onChange={this.handleChange}
           required
-        />
-      </Grid.Column>
-      <Grid.Column width={4}>
-        {/* <Dropzone
-          onDrop={this.onDrop}
-          multiple={false}
-        >
-          {({ getRootProps, getInputProps, isDragActive }) => {
-            return (
-              <div
-                {...getRootProps()}
-                style={styles.dropzone}
-              >
-                <input {...getInputProps()} />
-                {
-                  isDragActive ?
-                    <p>Drop files here...</p> :
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                }
-              </div>
-            )
-          }}
-        </Dropzone> */}
+        /> */}
       </Grid.Column>
       <Button>Submit</Button>
     </Form>
@@ -87,7 +84,7 @@ editImage = () => {
 }
 
   render() {
-    const { review } = this.state
+    const { review, editorState } = this.state
     return (
       <>
         <this.editImage />

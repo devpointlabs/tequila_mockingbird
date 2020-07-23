@@ -1,5 +1,4 @@
 import React from "react";
-
 import CommentForm from "./CommentForm";
 import axios from "axios";
 
@@ -26,8 +25,7 @@ class Comments extends React.Component {
     return (
     this.state.comments.map((comment) => (
       <div>
-        {comment.review}{comment.image}
-        {/* Adming */}
+        {comment.review}
         {this.props.user ? 
         this.isAdmin(comment.id) : null
       }
