@@ -88,6 +88,7 @@ class Drinks extends React.Component {
           
           <h1>Drinks</h1>
           )}
+        {this.renderDrinks()}
         <div>
           {toggleForm ? (
             <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
@@ -97,7 +98,6 @@ class Drinks extends React.Component {
           }
           {/* {this.props.auth.user ? this.isAdminButton() : null} */}
         </div>
-        {this.renderDrinks()}
       </div>
     );
   }

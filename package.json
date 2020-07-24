@@ -4,6 +4,7 @@
     "@ckeditor/ckeditor5-react": "^2.1.0",
     "draft-js": "^0.11.6",
     "react-draft-wysiwyg": "^1.14.5",
-    "react-dropzone": "^11.0.1"
+    "react-dropzone": "^11.0.1",
+    "styled-components": "^5.1.1"
   }
 }

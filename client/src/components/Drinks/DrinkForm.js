@@ -171,6 +171,8 @@ class DrinkForm extends React.Component {
       const { name, history, ingredients, prep_serv, checkedBoozes, image } = this.state;
       return (
         <form onSubmit={this.handleSubmit}>
+          <br/><br/>
+          <h1>Make A Drink!</h1>
           <input
             placeholder="Drink Name"
             name="name"
