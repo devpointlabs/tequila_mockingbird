@@ -3,6 +3,7 @@ import { AuthConsumer, } from "../providers/AuthProvider";
 import { Menu, } from 'semantic-ui-react'
 import { Link, withRouter, } from 'react-router-dom'
 import axios from "axios";
+import SearchBar from "./Search/SearchBar";
 
 class Navbar extends React.Component {
   
@@ -74,9 +75,9 @@ class Navbar extends React.Component {
           </Link>
             { this.rightNavItems() }
           <Menu.Menu position='right'>
-            <Link to='/search'>
+            <SearchBar to='/search'>
               Search
-            </Link>
+            </SearchBar>
             {/* <div className='ui right aligned category search item'>
            <div className='ui transparent icon input'>
             <input

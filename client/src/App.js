@@ -40,7 +40,7 @@ const App = () => (
           <Route exact path='/boozes/:id' component={BoozeView} />
           
         <Route exact path='/search' component={SearchBar}/>
-
+      
         <Route component={NoMatch} />
       </Switch>
     </Container>
