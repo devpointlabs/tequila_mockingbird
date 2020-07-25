@@ -56,7 +56,7 @@ class Boozes extends React.Component {
 
   isAdmin = () => {
     if (!this.props.auth.user.admin) return null;
-    return <button onClick={() => this.toggle()}>Toggle Add Form</button>;
+    return <button onClick={() => this.toggle()}>Add an Alcohol</button>;
   };
 
   render() {
@@ -67,7 +67,7 @@ class Boozes extends React.Component {
         {this.props.boozesSearch ? (
           <h3>Booze Results</h3>
         ) : (
-          <h3>Hello Booze World</h3>
+          <h3>Alcohol</h3>
         )}
         <div>
           {showForm ? (
