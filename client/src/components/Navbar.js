@@ -2,7 +2,6 @@ import React from 'react'
 import { AuthConsumer, } from "../providers/AuthProvider";
 import { Menu, } from 'semantic-ui-react'
 import { Link, withRouter, } from 'react-router-dom'
-import axios from "axios";
 import SearchBar from "./Search/SearchBar";
 
 class Navbar extends React.Component {
@@ -29,18 +28,18 @@ class Navbar extends React.Component {
     } else {
       return (
         <Menu.Menu position='right'>
+          <Link to='/register'>
+            <Menu.Item
+              id='register'
+              name='Create account'
+              active={location.pathname === '/register'}
+            />
+          </Link>
           <Link to='/login'>
             <Menu.Item
               id='login'
               name='login'
               active={location.pathname === '/login'}
-            />
-          </Link>
-          <Link to='/register'>
-            <Menu.Item
-              id='register'
-              name='register'
-              active={location.pathname === '/register'}
             />
           </Link>
         </Menu.Menu>
@@ -58,8 +57,8 @@ class Navbar extends React.Component {
               id='home'
               active={this.props.location.pathname === '/'}
             />
-            </Link>
-            <Link to='/drinks'>
+          </Link>
+          <Link to='/drinks'>
             <Menu.Item
               name='drinks'
               id='drinks'
@@ -74,23 +73,12 @@ class Navbar extends React.Component {
             />
           </Link>
             { this.rightNavItems() }
-          <Menu.Menu position='right'>
+          <Menu.Menu>
             <SearchBar to='/search'>
               Search
             </SearchBar>
-            {/* <div className='ui right aligned category search item'>
-           <div className='ui transparent icon input'>
-            <input
-              className='prompt'
-              type='text'
-              placeholder='Search Cocktails...'
-            />
-            <i className='search link icon' />
-          </div>
-          <div className='results' />
-        </div> */}
-      </Menu.Menu>
-    </Menu>
+          </Menu.Menu>
+        </Menu>
         
       </div>
     )
