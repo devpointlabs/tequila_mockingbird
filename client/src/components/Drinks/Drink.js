@@ -7,30 +7,27 @@ const defaultDrink =
   "https://image.flaticon.com/icons/png/128/3184/3184574.png";
 
 const Drink = (props) => {
-  const isAdmin = () => {
-    if (props.user.admin)
-      return (
-        <button onClick={() => props.deleteDrink(props.id)}> Delete</button>
-      );
-    return null;
-  };
+
   return (
-    
 
 
-  <Card href ={`/drinks/${props.id}`} >
-  
-    <Image floated='right' size='medium'src={props.image || defaultDrink} wrapped ui={false} />
-    <Card.Content>
-      <Card.Header >{props.name}</Card.Header>
-      <Card.Content> 
-        {props.user ? isAdmin() : null}
+
+    <Card>
+        <Image as='a' href={`/drinks/${props.id}`} size='large' src={props.image || defaultDrink} wrapped ui={false} />
+        <Card.Content >
+          <Card.Header as='a' href={`/drinks/${props.id}`}>
+            {props.name}
+            </Card.Header>
+        {props.user && props.user.admin ?
+          <Button onClick={() => props.deleteDrink(props.id)}> Delete</Button>
+          : null}
+
       </Card.Content>
-    </Card.Content>
-  </Card>
 
-    
-    
+    </Card>
+
+
+
   );
 };
 

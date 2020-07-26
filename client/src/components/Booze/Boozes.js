@@ -5,11 +5,12 @@ import BoozeForm from "./BoozeForm";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
+import { Card, Image } from "semantic-ui-react";
 
 class Boozes extends React.Component {
   state = {
     boozes: [],
-    showForm: false,
+    toggleForm: false,
   };
 
   componentDidMount() {
@@ -34,7 +35,7 @@ class Boozes extends React.Component {
       />
     ));
   toggle = () => {
-    this.setState({ showForm: !this.state.showForm });
+    this.setState({ toggleForm: true });
   };
 
   //! CRUD ACTIONS
@@ -61,22 +62,34 @@ class Boozes extends React.Component {
 
   render() {
     // DECONSTRUCTION
-    const { boozes, showForm } = this.state;
+    const { boozes, showForm, toggleForm, image } = this.state;
     return (
-      <div>
+      <>
         {this.props.boozesSearch ? (
           <h3>Booze Results</h3>
         ) : (
-          <h3>Alcohol</h3>
-        )}
-        <div>
-          {showForm ? (
-            <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
-          ) : null}
-          {this.props.auth.user ? this.isAdmin() : null}
-        </div>
-        {this.renderBoozes()}
-      </div>
+            <h1>Alcohol</h1>
+          )}
+
+
+        <Card.Group >
+          {this.props.auth.user && this.props.auth.user.admin ?
+            <Card onClick={() => this.toggle()} >
+              {!toggleForm ? (
+                <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} />
+              ) : null}
+              <Card.Content>
+                <Card.Header >Add an Alcohol</Card.Header>
+                {toggleForm ? (
+                  <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
+                ) : null}
+              </Card.Content>
+            </Card>
+            : null}
+          {this.renderBoozes()}
+        </Card.Group>
+
+      </>
     );
   }
 }

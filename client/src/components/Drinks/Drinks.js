@@ -90,16 +90,8 @@ class Drinks extends React.Component {
 
             <h1>Cocktails</h1>
           )}
-        <div>
-          {/* {toggleForm ? (
-            <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-          ) : null}
-          {this.props.drinksSearch ? null :
-            <button onClick={() => this.toggle()}>Add a Cocktail</button>
-          } */}
-        </div>
-          {this.props.auth.user ? this.isAdminButton() : null}
-        <Card.Group>
+        <Card.Group >
+          {this.props.auth.user ?
           <Card onClick={() => this.toggle()} >
             {!toggleForm ? (
               <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"}/>
@@ -107,10 +99,11 @@ class Drinks extends React.Component {
             <Card.Content>
               <Card.Header >Add a Cocktail</Card.Header>
               {toggleForm ? (
-            <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-          ) : null}
+                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
+                ) : null}
             </Card.Content>
           </Card>
+            : null}
           {this.renderDrinks()}
         </Card.Group>
       </>
