@@ -9,7 +9,7 @@ const NoMatch = () => (
     <Image src={"https://cdn11.bigcommerce.com/s-ek50668lzs/images/stencil/1280x1280/products/2623/2887/2579-lg__20068.1577641809.jpg?c=1?imbypass=on&imbypass=on"} size='large' centered/>
     <div>
       <Button>
-      <Link to="/"> Home</Link>
+      <Link to="/"> Take me home</Link>
       </Button>
     </div>
   </div>
