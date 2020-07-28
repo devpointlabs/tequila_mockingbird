@@ -1,5 +1,4 @@
 import React from "react";
-
 import CommentForm from "./CommentForm";
 import axios from "axios";
 import "../Booze/BoozeDrinkStyles.css";

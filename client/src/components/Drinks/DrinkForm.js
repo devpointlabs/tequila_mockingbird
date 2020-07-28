@@ -4,9 +4,17 @@ import axios from "axios";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid} from 'semantic-ui-react';
 import './Form.css';
+import styled from 'styled-components';
 
 
 const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
+
+// const Button = styled.button`
+//   width: 6em;
+//   margin: 10px;
+//   padding: 4px 3px;
+// `
+
 
 const styles = {
   dropzone: {
@@ -69,11 +77,6 @@ class DrinkForm extends React.Component {
     e.preventDefault();
 
     if (this.props.drink) {
-      //   const { id } = this.props.drink;
-      //   axios.get(`/api/drinks/${id}/boozedrinks`).then((res) => {
-      //     const boozeDrink = res.data[0];
-      //     this.setState({ editBoozeId: boozeDrink.id });
-      //   });
       const { name, history, ingredients, prep_serv, checkedBoozes, file } = this.state;
       this.props.editDrink(
         this.props.drink.id,
@@ -125,8 +128,7 @@ class DrinkForm extends React.Component {
 
   checkboxBooze = () => {
     return this.state.boozes.map((booze) => (
-      <div>
-        <label>{booze.name}</label>
+      <div className='chex'>
         <input
           type="checkbox"
           value={booze.id} // ==> true
@@ -134,16 +136,18 @@ class DrinkForm extends React.Component {
           checked={booze.is_checked}
           onChange={this.handleCheckboxChange}
         />
+        <label> {booze.name}</label>
       </div>
     ));
   };
 
+  
   dropZone = () => {
     const { file, } = this.state;
     return(
       <Form onSubmit={this.handleSubmit}>
-        <Grid.Column width={4}>
           <Dropzone
+            className='dropZone'
             onDrop={this.onDrop}
             multiple={false}
           >
@@ -163,7 +167,6 @@ class DrinkForm extends React.Component {
               )
             }}
           </Dropzone>
-        </Grid.Column>
       </Form>
     )}
 
@@ -221,6 +224,7 @@ class DrinkForm extends React.Component {
               <br/>
           <textarea
             rows='6'
+
             cols='30'
             placeholder="Preparation"
             name="prep_serv"

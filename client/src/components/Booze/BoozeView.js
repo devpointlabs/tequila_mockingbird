@@ -174,6 +174,13 @@ class BoozeView extends React.Component {
         </div>
         <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
 
+        {this.state.toggleEdit ? <BoozeForm booze={this.state.booze} editBooze={this.editBooze} toggleEdit={this.toggle}/> : null}
+        <button onClick={() => this.toggle()}>
+          {this.state.toggleEdit ? "Close Form" : "Edit"}
+        </button>
+      <hr/>
+      <h2>{name} Cocktails</h2>
+      {this.renderDrinks()}
         {this.state.toggleEdit ? (
           <BoozeForm
             booze={this.state.booze}

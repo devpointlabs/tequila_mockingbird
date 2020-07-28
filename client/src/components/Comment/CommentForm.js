@@ -1,6 +1,6 @@
 import React from "react";
-import Comments from "./Comments";
-import Dropzone from 'react-dropzone'; //Import Dropzone
+// import Comments from "./Comments";
+// import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
 import '../Drinks/Form.css'
 
@@ -18,12 +18,12 @@ const styles = {
   },
 }
 
-class CommentForm extends React.Component {
-  state = { review: "", formValues: { file: '' }};
+// const EditorComponent = () => <Editor />
 
-  onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0], } });
-  }
+class CommentForm extends React.Component {
+  state = { 
+    review: '',
+  };
 
   componentDidMount() {
     if (this.props.comment) {
@@ -47,13 +47,12 @@ class CommentForm extends React.Component {
 
 
 editImage = () => {
-  const { review, formValues:{file}} = this.state;
+  const {review} = this.state;
   return (
     <Form onSubmit={this.handleSubmit}>
-      <Grid.Column width={6}>
-
-
-        <input
+        <textarea
+          cols='200'
+          rows='10'
           placeholder="Comment"
           name="review"
           value={review}
@@ -83,9 +82,11 @@ editImage = () => {
           }}
         </Dropzone> */}
       </Grid.Column>
+
     </Form>
   )
 }
+
 
 render() {
   const { review } = this.state

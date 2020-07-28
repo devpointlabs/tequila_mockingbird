@@ -59,13 +59,6 @@ class Drinks extends React.Component {
       });
     });
     Promise.all(promiseBoozeArray).catch(console.log("oopsie woopsie"));
-
-    // Backend mumbo jumbo
-    // axios
-    //   .post(`/api/drinks/${drinkId}/boozedrinks`, {boozedrink: {booze_id_array: checkedBoozes}})
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   });
   };
 
   deleteDrink = (id) => {
@@ -84,6 +77,7 @@ class Drinks extends React.Component {
   render() {
     // DECONSTRUCTION
     const { drinks, toggleForm } = this.state;
+
     return (
       <div id="container">
         {this.props.drinksSearch ? (
@@ -110,7 +104,6 @@ class Drinks extends React.Component {
           {this.renderDrinks()}
         </Card.Group>
       </div>
-
     );
   }
 }
