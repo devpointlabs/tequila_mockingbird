@@ -84,19 +84,6 @@ class Drinks extends React.Component {
 
             <h1>Cocktails</h1>
           )}
-<<<<<<< HEAD
-        {this.renderDrinks()}
-        <div>
-          {toggleForm ? (
-            <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-          ) : null}
-          {this.props.drinksSearch ? null :
-            <button onClick={() => this.toggle()}>Toggle Add Form</button>
-          }
-          {/* {this.props.auth.user ? this.isAdminButton() : null} */}
-        </div>
-      </div>
-=======
 
         <Card.Group >
           {this.props.auth.user ?
@@ -115,8 +102,6 @@ class Drinks extends React.Component {
           {this.renderDrinks()}
         </Card.Group>
       </>
-
->>>>>>> 756eec1bc8b9adc2e87b757df9a4b9e912f06e12
     );
   }
 }
