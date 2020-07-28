@@ -5,7 +5,7 @@ import BoozeForm from "./BoozeForm";
 import axios from "axios";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image , Button} from "semantic-ui-react";
 import "./BoozeDrinkStyles.css";
 
 class Boozes extends React.Component {
@@ -63,7 +63,7 @@ class Boozes extends React.Component {
 
   render() {
     // DECONSTRUCTION
-    const { boozes, showForm, toggleForm, image } = this.state;
+    const { boozes, showForm, toggleForm, image, } = this.state;
     return (
       <div id="container">
         {this.props.boozesSearch ? (
@@ -72,21 +72,25 @@ class Boozes extends React.Component {
             <h1>Alcohol</h1>
           )}
 
+        {this.props.auth.user && this.props.auth.user.admin && toggleForm ?
+          (
+            <>
+              <BoozeForm add={this.addDrink} toggleForm={this.toggle} />
+              <Button onClick={() => this.toggle()}>
+                {this.state.toggleForm ? "Close Form" : ""}
+              </Button>
+            </>
+          ) : null}
 
         <Card.Group >
-          {this.props.auth.user && this.props.auth.user.admin ?
-            <Card  >
-              {!toggleForm ? (
-                <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()}/>
-              ) : null}
+          {this.props.auth.user && this.props.auth.user.admin && !toggleForm ? (
+            <Card >
+              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()} />
               <Card.Content>
-                <Card.Header >Add an Alcohol</Card.Header>
-                {toggleForm ? (
-                  <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
-                ) : null}
+                <Card.Header onClick={() => this.toggle()}> Add an Alcohol</Card.Header>
               </Card.Content>
             </Card>
-            : null}
+          ) : null}
           {this.renderBoozes()}
         </Card.Group>
 
@@ -94,6 +98,7 @@ class Boozes extends React.Component {
     );
   }
 }
+
 
 // FUNCTIONS
 
@@ -110,3 +115,20 @@ export class ConnectedBoozes extends React.Component {
 }
 
 export default withRouter(ConnectedBoozes);
+
+{/* <Card.Group >
+  {this.props.auth.user && this.props.auth.user.admin ?
+    <Card  >
+      {!toggleForm ? (
+        <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()} />
+      ) : null}
+      <Card.Content>
+        <Card.Header >Add an Alcohol</Card.Header>
+        {toggleForm ? (
+          <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
+        ) : null}
+      </Card.Content>
+    </Card>
+    : null}
+  {this.renderBoozes()}
+</Card.Group> */}

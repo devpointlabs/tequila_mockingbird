@@ -6,7 +6,7 @@ import { ConnectedBoozes } from "../Booze/Boozes";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components';
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 import "../Booze/BoozeDrinkStyles.css";
 
 
@@ -87,11 +87,13 @@ class Drinks extends React.Component {
             <h1>Cocktails</h1>
           )}
           {this.props.auth.user && toggleForm?(
+                <>
                 <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
+                <Button onClick={() => this.toggle()}>
+                {this.state.toggleForm ? "Close Form" : ""}
+                </Button>
+                </>
               ) : null}
-            {/* <button onClick={() => this.toggle()}>
-          {this.state.toggleForm ? "Close Form" : ""}
-        </button> */}
 
         <Card.Group >
           {this.props.auth.user && !toggleForm?(
