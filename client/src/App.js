@@ -26,7 +26,6 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      <Container>
       <Switch>
         <Route exact path="/" component={Home} />
         <ProtectedRoute exact path='/profile' component={Profile} /> {/* We added this protected route from lecture*/}
@@ -41,9 +40,10 @@ const App = () => (
           
         <Route exact path='/search' component={SearchBar}/>
       
+      
         <Route component={NoMatch} />
       </Switch>
-    </Container>
+    
     </FetchUser>
   </Fragment>
 )

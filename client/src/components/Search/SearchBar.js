@@ -36,11 +36,11 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
           {/* Search Me */}
-        <Form>
+        <Form >
           <Input
-            placeholder="Find a drink..."
+            placeholder="Find a cocktail..."
             onChange={this.handleSearchChange}
             value={this.state.search}
             name="search"
@@ -50,7 +50,7 @@ class SearchBar extends React.Component {
           </Button>
         </Form>
 
-
+    <div style={{display:"flex", justifyContent:"center"}}>
         {/* RESULTS */}
         {this.state.searched ? (
           this.state.drinks.length > 0 ? (
@@ -68,6 +68,7 @@ class SearchBar extends React.Component {
             "No Alcohol found "
           )
         ) : null}
+        </div>
       </div>
     );
   }

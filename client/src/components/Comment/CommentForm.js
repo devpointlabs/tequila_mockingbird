@@ -2,6 +2,8 @@ import React from "react";
 import Comments from "./Comments";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
+import '../Drinks/Form.css'
+
 
 const styles = {
   dropzone: {
@@ -81,19 +83,27 @@ editImage = () => {
           }}
         </Dropzone> */}
       </Grid.Column>
-      <Button>Submit</Button>
     </Form>
   )
 }
 
-  render() {
-    const { review } = this.state
-    return (
-      <>
+render() {
+  const { review } = this.state
+  return (
+    <div className='format'>
+      <br/>
+      <br/>
+      <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
+      <div className='centering'>
         <this.editImage />
-      </>
-    )
-  }
+      </div>
+      <br/>
+      <hr/>
+      <br/>
+      <button class='ui fluid button'>Submit</button>
+    </div>
+  )
+}
 }
 
 

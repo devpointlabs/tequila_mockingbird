@@ -8,11 +8,12 @@ const Home = () => (
   <div>
       <Header as="h1" textAlign="center"> </Header>
       <Header as="h1" textAlign="center">Tequila Mockingbird</Header>
-      <Header as="h3" textAlign="center">The free drink encyclopedia</Header>
+      <Header as="h3" textAlign="center">The Cocktail Encyclopedia</Header>
       <hr></hr>
       <Header as="h1" textAlign="center">  </Header>
-      <Image src={"https://www.indiewire.com/wp-content/uploads/2016/08/20140216-131646.jpg?resize=800,450"} centered/>
+      <Image src={"https://www.indiewire.com/wp-content/uploads/2016/08/20140216-131646.jpg?resize=800,450"} centered size='huge'/>
       <Header as="h1" textAlign="center">  </Header>
+      {/* <Header as="h1" textAlign="center">  </Header> */}
       <hr></hr>
     <div
         style={{
@@ -21,7 +22,7 @@ const Home = () => (
           alignItems: "flex-end"
         }}
         >
-      <SearchBar/>
+      <SearchBar size='huge'/>
     </div>
   </div>
   

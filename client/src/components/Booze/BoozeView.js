@@ -119,7 +119,7 @@ class BoozeView extends React.Component {
     if (this.props.auth.user.admin)
       return (
         <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit this Booze"}
+          {this.state.toggleEdit ? "Close Form" : "Edit this Alcohol"}
         </button>
       );
     return null;
@@ -147,11 +147,13 @@ class BoozeView extends React.Component {
   render() {
     const { name, history, production, image } = this.state.booze;
     return (
-      <div className="container">
-        <h1>{name}</h1>
-        <hr />
+      <div id="container">
+        <div id="nameStyle">
+          <h1>{name}</h1>
+          <hr />
+        </div>
         <div className="main">
-          <div className="content">
+          <div id="content">
             <h2 id="history">History</h2>
             <h3>{history}</h3>
             <h2 id="production">Production</h2>
@@ -167,7 +169,7 @@ class BoozeView extends React.Component {
               </ol>
             </div>
             <h3>{production}</h3>
-            <img src={image || defaultBooze} />
+            <img id="pic" src={image || defaultBooze} />
           </div>
         </div>
         <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>

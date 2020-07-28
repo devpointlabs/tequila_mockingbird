@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthConsumer, } from "../providers/AuthProvider";
 import { Button, Form, Segment, Header, } from 'semantic-ui-react';
+import { Link, } from 'react-router-dom';
 import './Login.css';
 
 
@@ -56,7 +57,8 @@ class Login extends React.Component {
           {/* this button doesnt work */}
           <Header as='h4' textAlign='center'>Not registered yet? Register Now!</Header>
           <Segment textAlign='center' basic>
-            <Button color='grey'>REGISTER</Button>
+            
+            <Link to="/register"> <Button color='grey'>REGISTER</Button></Link>
           </Segment>
         </Form>
       </Segment>

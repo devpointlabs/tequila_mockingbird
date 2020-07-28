@@ -3,6 +3,8 @@ import Drink from "./Drink";
 import axios from "axios";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid} from 'semantic-ui-react';
+import './Form.css';
+
 
 const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 
@@ -170,40 +172,76 @@ class DrinkForm extends React.Component {
     render() {
       const { name, history, ingredients, prep_serv, checkedBoozes, image } = this.state;
       return (
+        <div>
+          {/* should this be on the drinks page??? */}
+          {/* <br/> */}
+          {/* <h1 className='formTitle'>Create your own drink!</h1>
+          <h4 className='formTitle'>Share your own recipes here, let us know how it's made and the history behind your own creation</h4> */}
         <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="Drink Name"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-          />
-          <input
+        <div className='format'>
+          <div class='column'>
+          <br/>
+          <ul>
+            <li>
+              <label>Name: </label>
+              <br/>
+              <input
+                placeholder="Drink Name"
+                name="name"
+                value={name}
+                onChange={this.handleChange}
+              />
+            </li>
+            <li>
+            <label>History: </label>
+              <br/>
+          <textarea
+            rows='6'
+            cols='30'
             placeholder="History"
             name="history"
             value={history}
             onChange={this.handleChange}
           />
-          <input
+            </li>
+            <li> 
+            <label>Ingredients: </label>
+              <br/> 
+          <textarea 
+            rows='10'
+            cols='30'
             placeholder="Ingredients"
             name="ingredients"
             value={ingredients}
             onChange={this.handleChange}
           />
-          <input
+            </li>
+            <li>
+            <label>Preparation: </label>
+              <br/>
+          <textarea
+            rows='6'
+            cols='30'
             placeholder="Preparation"
             name="prep_serv"
             value={prep_serv}
             onChange={this.handleChange}
           />
-          <div>
-            <label>What Booze goes in here?</label>
-            <hr />
-            {this.checkboxBooze()}
+            </li>
+          </ul>
+          <label className='checkLabel'>Choose your alcohol:</label>
+          <br />
+          {this.checkboxBooze()}
           </div>
-          {this.props.drink ? this.dropZone() : ""}
+          <div>
+            {this.props.drink ? this.dropZone() : ""}
+          </div>
           <hr />
-          <button>Submit</button>
+          <br/>
+          <button class='ui fluid button'>Submit</button>
+        </div>
         </form>
+        </div>
       );
     }
   }
