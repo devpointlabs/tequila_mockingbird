@@ -2,7 +2,8 @@ import React from "react";
 import Booze from "./Booze";
 import axios from "axios";
 import Dropzone from 'react-dropzone'; //Import Dropzone
-import { Form, Grid } from 'semantic-ui-react';
+import { Form, Grid, Button } from 'semantic-ui-react';
+import '../Drinks/Form.css';
 
 const defaultBooze = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 
@@ -114,28 +115,56 @@ class BoozeForm extends React.Component {
     const { name, production, history, image } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          placeholder="Name"
-          name="name"
-          value={name}
-          onChange={this.handleChange}
-        />
-        <input
-          placeholder="Production"
-          name="production"
-          value={production}
-          onChange={this.handleChange}
-        />
-        <input
-          placeholder="History"
-          name="history"
-          value={history}
-          onChange={this.handleChange}
-        />
-        <div>
-        {this.props.booze ? this.dropZone() : ""}
+        <h1 className='formTitle'>Add A Booze</h1>
+        <h4 className='formTitle'>Add another alochol that we missed </h4>
+        <div className='boozeFormat'>
+          <div className='boozeColumn'>
+            <ul>
+            <li className='item'>
+              <label>Name: </label>
+              <br/>
+              <input
+                placeholder="Name"
+                name="name"
+                value={name}
+                onChange={this.handleChange}
+              />
+            </li>
+            <li className='item'> 
+              <label>Production: </label>
+              <br/>             
+              <textarea
+                rows="10"
+                cols='300'
+                placeholder="Production"
+                name="production"
+                value={production}
+                onChange={this.handleChange}
+              />
+            </li>
+            <li className='item'> 
+              <label>History: </label>
+              <br/>             
+              <textarea
+                rows="10"
+                cols='300'
+                placeholder="History"
+                name="history"
+                value={history}
+                onChange={this.handleChange}
+              />
+            </li>
+            </ul>
+          <div className='item'>
+            {this.props.booze ? this.dropZone() : ""}
+          </div>
+          </div>
+          <hr />
+          <br/>
+          <div>
+            <button class='ui fluid button'>Submit</button>
+          </div>
         </div>
-        <button>Submit</button>
       </form>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
-import Comments from "./Comments";
-import Dropzone from 'react-dropzone'; //Import Dropzone
+// import Comments from "./Comments";
+// import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
 
 const styles = {
@@ -16,12 +16,12 @@ const styles = {
   },
 }
 
-class CommentForm extends React.Component {
-  state = { review: "", formValues: { file: '' }};
+// const EditorComponent = () => <Editor />
 
-  onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0], } });
-  }
+class CommentForm extends React.Component {
+  state = { 
+    review: '',
+  };
 
   componentDidMount() {
     if (this.props.comment) {
@@ -45,43 +45,18 @@ class CommentForm extends React.Component {
 
 
 editImage = () => {
-  const { review, formValues:{file}} = this.state;
+  const {review} = this.state;
   return (
     <Form onSubmit={this.handleSubmit}>
-      <Grid.Column width={6}>
-
-
-        <input
+        <textarea
+          cols='200'
+          rows='10'
           placeholder="Comment"
           name="review"
           value={review}
           onChange={this.handleChange}
           required
         />
-      </Grid.Column>
-      <Grid.Column width={4}>
-        {/* <Dropzone
-          onDrop={this.onDrop}
-          multiple={false}
-        >
-          {({ getRootProps, getInputProps, isDragActive }) => {
-            return (
-              <div
-                {...getRootProps()}
-                style={styles.dropzone}
-              >
-                <input {...getInputProps()} />
-                {
-                  isDragActive ?
-                    <p>Drop files here...</p> :
-                    <p>Try dropping some files here, or click to select files to upload.</p>
-                }
-              </div>
-            )
-          }}
-        </Dropzone> */}
-      </Grid.Column>
-      <Button>Submit</Button>
     </Form>
   )
 }
@@ -89,9 +64,16 @@ editImage = () => {
   render() {
     const { review } = this.state
     return (
-      <>
-        <this.editImage />
-      </>
+      <div className='format'>
+        <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
+        <div className='center'>
+          <this.editImage />
+        </div>
+        <br/>
+        <hr/>
+        <br/>
+        <button class='ui fluid button'>Submit</button>
+      </div>
     )
   }
 }
