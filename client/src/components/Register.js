@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { AuthConsumer, } from "../providers/AuthProvider";
-import { Button, Form, Segment, Header, } from 'semantic-ui-react';
+import { Button, Form, Segment, Header, Container } from 'semantic-ui-react';
 import { ReCaptcha } from 'react-recaptcha-google'
+import './Register.css'
+
 
 const SITE_KEY= process.env.REACT_APP_SITE_KEY
 console.log(SITE_KEY)
@@ -76,48 +78,72 @@ class Register extends React.Component {
     return (
       <>
       <Segment basic>
-        <Header as='h1' textAlign='center'>Register</Header>
+        <Header as='h1' textAlign='center'>Create Account</Header>
+        <br/>
+        <Container textAlign='center'>
+          <p>
+             <div>
+            Your username will be public.
+            </div>
+            Please consider using an anonymous username, and not your real name, unless you are
+            comfortable with your identity being public for the entire internet to see and identify
+            you.
+            Once an account has been created, it is essentially impossible to hide the original 
+            username should you later want to change it for privacy reasons.
+          </p>
+          <br/>
+        </Container>
+    
         <Form onSubmit={this.handleSubmit}>
-        <Form.Input     //Adding name to registration form
-          label="Name"
-          required
-          name="name"
-          value={name}
-          placeholder="Name"
-          onChange={this.handleChange}
-        />
-          <Form.Input
-            label="Email"
-            required
-            autoFocus
-            name='email'
-            value={email}
-            placeholder='Email'
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Password"
-            required
-            name='password'
-            value={password}
-            placeholder='Password'
-            type='password'
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Password Confirmation"
-            required
-            name='passwordConfirmation'
-            value={passwordConfirmation}
-            placeholder='Password Confirmation'
-            type='password'
-            onChange={this.handleChange}
-          />
-          <Segment textAlign='center' basic>
-            <Button primary type='submit'>Submit</Button>
-          </Segment>
+          <div class='container'>
+            <Form.Input     //Adding name to registration form
+              label="Username"
+              required
+              name="name"
+              value={name}
+              placeholder="Name"
+              onChange={this.handleChange}
+              width={8}
+            />
+              <Form.Input
+                label="Email"
+                required
+                autoFocus
+                name='email'
+                value={email}
+                placeholder='Email'
+                onChange={this.handleChange}
+                width={8}
+              />
+              <Form.Input
+                label="Password"
+                required
+                name='password'
+                value={password}
+                placeholder='Password'
+                type='password'
+                onChange={this.handleChange}
+                width={8}
+              />
+              <Form.Input
+                label="Password Confirmation"
+                required
+                name='passwordConfirmation'
+                value={passwordConfirmation}
+                placeholder='Password Confirmation'
+                type='password'
+                onChange={this.handleChange}
+                width={8}
+              />
+            <Segment textAlign='center' basic>
+              <Button color='grey' >REGISTER</Button>
+            </Segment>
+            </div>
         </Form>
       </Segment>
+
+      <Header as='h4' textAlign='center'>CAPTCHA Security check</Header>
+      <div class='item'>
         <ReCaptcha
             ref={(el) => {this.captchaDemo = el;}}
             size="normal"
@@ -127,9 +153,10 @@ class Register extends React.Component {
             onloadCallback={this.onLoadRecaptcha}
             verifyCallback={this.verifyCallback}
         />
-        </>
+      </div>
+      </>
     )
-
+         
   }
 }
 

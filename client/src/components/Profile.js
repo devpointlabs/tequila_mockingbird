@@ -56,7 +56,7 @@ class Profile extends React.Component {
         </Grid.Column>
       <Grid.Column width={8}>   {/* lecture left out the below code to add form */}
             <Form.Input
-            label="Name"
+            label="Username"
             name="name"
             value={name}
             required
