@@ -18,7 +18,8 @@ const Home = () => (
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          alignItems: "flex-end"
+          alignItems: "flex-end",
+          flexgrow: 2 
         }}
         >
       <SearchBar/>
