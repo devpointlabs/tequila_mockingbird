@@ -2,23 +2,13 @@ import React from "react";
 import axios from "axios";
 import DrinkForm from "./DrinkForm";
 import Dropzone from "react-dropzone"; //Import Dropzone
-import {
-  Form,
-  Grid,
-  Image,
-  Container,
-  Divider,
-  Header,
-  Button,
-  AccordionPanel,
-} from "semantic-ui-react";
+import {Form, Grid, Image, Container, Divider, Header, Button, AccordionPanel} from "semantic-ui-react";
 import Comments from "../Comment/Comments";
 import CommentForm from "../Comment/CommentForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 
-const defaultDrink =
-  "https://image.flaticon.com/icons/png/128/3184/3184574.png";
+const defaultDrink = "https://image.flaticon.com/icons/png/128/3184/3184574.png";
 
 class DrinkView extends React.Component {
   state = {
@@ -110,8 +100,10 @@ class DrinkView extends React.Component {
     // Grabs the values changed from the changes object and maps through all the values changed
     // Audit magic grabs previous one, and current one. One === value
     // There was only two values in an array so we just grab the index of each.
-    
-    if (changes.image === null) {changes.image = defaultDrink}
+
+    if (changes.image === null) {
+      changes.image = defaultDrink;
+    }
     var arr2 = Object.values(changes).map(function (value) {
       return (
         <div>
@@ -121,10 +113,12 @@ class DrinkView extends React.Component {
     });
     return arr2;
   };
-  
+
   auditTitle = (changes) => {
     // Grabs the key from the changes object and maps through all the keys changed
-    if (changes.image === null) {changes.image = defaultDrink}
+    if (changes.image === null) {
+      changes.image = defaultDrink;
+    }
     var arr1 = Object.keys(changes).map(function (key) {
       // Makes first letter of each string a capital letter
       return key.charAt(0).toUpperCase() + key.slice(1) + " ";
@@ -134,7 +128,7 @@ class DrinkView extends React.Component {
   };
 
   renderAudits = () => {
-    if (this.state.audits.length === 0) return null
+    if (this.state.audits.length === 0) return null;
     return this.state.audits.map((a) => {
       // time(a.created_at)
       return (
@@ -147,7 +141,7 @@ class DrinkView extends React.Component {
             Topics Changed: <b>{this.auditTitle(a.audited_changes)}</b>
           </div>
           <div>{this.auditChanges(a.audited_changes)}</div>
-          <hr />
+          {/* <hr /> */}
         </div>
       );
     });
@@ -157,7 +151,7 @@ class DrinkView extends React.Component {
     if (this.props.auth.user.admin)
       return (
         <div>
-          <hr />
+          {/* <hr /> */}
           <h4>Edit Logs</h4>
           {this.renderAudits()}
         </div>
@@ -188,7 +182,7 @@ class DrinkView extends React.Component {
     if (this.props.auth.user.admin)
       return (
         <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit"}
+          {this.state.toggleEdit ? "Close Form" : "Edit this Drink"}
         </button>
       );
   };
@@ -204,18 +198,36 @@ class DrinkView extends React.Component {
     } = this.state.drink;
 
     return (
-      <div>
+      <div className="container">
         <h1>{name}</h1>
-        <h2>History</h2>
-        <h3>{history}</h3>
-        <h2>Ingredients</h2>
-        <h3>{ingredients}</h3>
-        <h2>Served In</h2>
-        <h3>{prep_serv}</h3>
-        <img src={image || defaultDrink} />
-        {/* add defaultDrink or drinkimage */}
-        {/* <h1>{boozes_name}</h1> */}
-        {this.props.auth.user ? this.isAdmin() : null}
+        <hr />
+        <div className="main">
+          <div className="content">
+            <h2 id="history">History</h2>
+            <h3>{history}</h3>
+            <h2 id="ingredients">Ingredients</h2>
+            <h3>{ingredients}</h3>
+            <div className="tableOfContents">
+              <h5>Table of Contents</h5>
+              <ol>
+                <li>
+                  <a href="#history">History</a>
+                </li>
+                <li>
+                  <a href="#ingredients">Ingredients</a>
+                </li>
+                <li>
+                  <a href="#served">Served</a>
+                </li>
+              </ol>
+            </div>
+            <h2 id="served">Served</h2>
+            <h3>{prep_serv}</h3>
+            <img src={image || defaultDrink} />
+          </div>
+        </div>
+        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
+
         {this.state.toggleEdit ? (
           <DrinkForm
             drink={this.state.drink}
@@ -226,6 +238,7 @@ class DrinkView extends React.Component {
         {this.props.auth.user ? this.isAdminButton() : null}
         <hr />
         <h2>Contains:</h2>
+
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
         <h2> Comments</h2>
