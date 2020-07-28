@@ -69,13 +69,8 @@ class Comments extends React.Component {
     return (
       <div>
         {this.renderComments()}
-<<<<<<< HEAD
-        <div>         
-            <CommentForm add={this.addComment} />         
-=======
         <div style={{ marginTop: "5px" }}>
           <CommentForm add={this.addComment} />
->>>>>>> 756eec1bc8b9adc2e87b757df9a4b9e912f06e12
         </div>
       </div>
     );
