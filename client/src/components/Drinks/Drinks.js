@@ -37,8 +37,8 @@ class Drinks extends React.Component {
     ));
 
   toggle = () => {
-    this.setState({ toggleForm: !this.state.toggleForm})
-    
+    this.setState({ toggleForm: !this.state.toggleForm })
+
   };
 
   //! CRUD ACTIONS
@@ -86,23 +86,28 @@ class Drinks extends React.Component {
 
             <h1>Cocktails</h1>
           )}
+          {this.props.auth.user && toggleForm?(
+                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
+              ) : null}
+            {/* <button onClick={() => this.toggle()}>
+          {this.state.toggleForm ? "Close Form" : ""}
+        </button> */}
 
         <Card.Group >
-          {this.props.auth.user ?
-          <Card >
-            {!toggleForm ? (
-              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()}/>
+          {this.props.auth.user && !toggleForm?(
+            <Card >
+                  <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()} />
+                  <Card.Content>
+                    <Card.Header onClick={() => this.toggle()}> Add a Cocktail</Card.Header>
+                  </Card.Content>
+                </Card>
               ) : null}
-            <Card.Content>
-              <Card.Header >Add a Cocktail</Card.Header>
-              {toggleForm ? (
-                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-                ) : null}
-            </Card.Content>
-          </Card>
-            : null}
-          {this.renderDrinks()}
-        </Card.Group>
+            {this.renderDrinks()}
+            </Card.Group>
+            
+                
+
+
       </div>
     );
   }
