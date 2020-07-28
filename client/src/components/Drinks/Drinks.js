@@ -90,6 +90,7 @@ class Drinks extends React.Component {
 
             <h1>Cocktails</h1>
           )}
+
         <Card.Group >
           {this.props.auth.user ?
           <Card onClick={() => this.toggle()} >
@@ -107,6 +108,7 @@ class Drinks extends React.Component {
           {this.renderDrinks()}
         </Card.Group>
       </>
+
     );
   }
 }

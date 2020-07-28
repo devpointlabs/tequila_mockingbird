@@ -1,0 +1,32 @@
+
+img {
+    position: absolute;
+    top: 50px;
+    right: 16px;
+    height: 200px;
+    width: 200px;
+    display: block;
+}
+
+.tableOfContents {
+    border: 1px solid gray;
+    float: left;
+    padding: .5em;
+    margin-right: .5em;
+}
+
+#editLog {
+    float: right;
+}
+
+/* .comments {
+    margin: .5em;
+    border: 1px solid red;
+    padding: 5px;
+} */
+
+td:first-child {
+    width: 255px;
+    border: 1px solid gray;
+    padding: 5px;
+}

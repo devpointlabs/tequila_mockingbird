@@ -40,7 +40,7 @@ class SearchBar extends React.Component {
           {/* Search Me */}
         <Form>
           <Input
-            placeholder="Search for..."
+            placeholder="Find a drink..."
             onChange={this.handleSearchChange}
             value={this.state.search}
             name="search"
@@ -56,7 +56,7 @@ class SearchBar extends React.Component {
           this.state.drinks.length > 0 ? (
             <Drinks drinksSearch={this.state.drinks} />
           ) : (
-            "No Drinks found"
+            "No Cocktails found "
           )
         ) : null}
 
@@ -65,7 +65,7 @@ class SearchBar extends React.Component {
           this.state.boozes.length > 0 ? (
             <Boozes boozesSearch={this.state.boozes} />
           ) : (
-            "No Boozes found"
+            "No Alcohol found "
           )
         ) : null}
       </div>
