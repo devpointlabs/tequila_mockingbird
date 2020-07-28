@@ -5,6 +5,8 @@ import axios from "axios";
 import { ConnectedBoozes } from "../Booze/Boozes";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
+import styled from 'styled-components';
+import { Card, Image } from "semantic-ui-react";
 
 class Drinks extends React.Component {
   state = {
@@ -15,25 +17,26 @@ class Drinks extends React.Component {
 
   componentDidMount() {
     if (this.props.drinksSearch) {
-      this.setState({drinks: this.props.drinksSearch})
+      this.setState({ drinks: this.props.drinksSearch })
     } else {
 
       axios
-      .get("/api/drinks")
-      .then((res) => {
-        this.setState({ drinks: res.data });
-      })
-      .catch(console.log("Woopsie"));
+        .get("/api/drinks")
+        .then((res) => {
+          this.setState({ drinks: res.data });
+        })
+        .catch(console.log("Woopsie"));
     }
-    }
+  }
 
   renderDrinks = () =>
-      this.state.drinks.map((drink) => (
-      <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user}/>
+    this.state.drinks.map((drink) => (
+      <Drink {...drink} deleteDrink={this.deleteDrink} user={this.props.auth.user} />
     ));
 
   toggle = () => {
-    this.setState({ toggleForm: !this.state.toggleForm });
+    this.setState({ toggleForm: true })
+    
   };
 
   //! CRUD ACTIONS
@@ -66,21 +69,22 @@ class Drinks extends React.Component {
 
   isAdminButton = () => {
     if (this.props.auth.user.admin)
-      return <button onClick={() => this.toggle()}>Toggle Add Form</button>;
-    };
-    
-    render() {
-      // DECONSTRUCTION
+      return <button onClick={() => this.toggle()}>Add a Cocktail</button>;
+  };
+
+  render() {
+    // DECONSTRUCTION
     const { drinks, toggleForm } = this.state;
 
     return (
-      <div>
+      <>
         {this.props.drinksSearch ? (
           <h3>Drink Results</h3>
-        ): (
-          
-          <h1>Drinks</h1>
+        ) : (
+
+            <h1>Cocktails</h1>
           )}
+<<<<<<< HEAD
         {this.renderDrinks()}
         <div>
           {toggleForm ? (
@@ -92,6 +96,27 @@ class Drinks extends React.Component {
           {/* {this.props.auth.user ? this.isAdminButton() : null} */}
         </div>
       </div>
+=======
+
+        <Card.Group >
+          {this.props.auth.user ?
+          <Card onClick={() => this.toggle()} >
+            {!toggleForm ? (
+              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"}/>
+              ) : null}
+            <Card.Content>
+              <Card.Header >Add a Cocktail</Card.Header>
+              {toggleForm ? (
+                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
+                ) : null}
+            </Card.Content>
+          </Card>
+            : null}
+          {this.renderDrinks()}
+        </Card.Group>
+      </>
+
+>>>>>>> 756eec1bc8b9adc2e87b757df9a4b9e912f06e12
     );
   }
 }
