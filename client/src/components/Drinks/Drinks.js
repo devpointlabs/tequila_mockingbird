@@ -7,6 +7,8 @@ import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components';
 import { Card, Image } from "semantic-ui-react";
+import "../Booze/BoozeDrinkStyles.css";
+
 
 class Drinks extends React.Component {
   state = {
@@ -35,7 +37,7 @@ class Drinks extends React.Component {
     ));
 
   toggle = () => {
-    this.setState({ toggleForm: true })
+    this.setState({ toggleForm: !this.state.toggleForm})
     
   };
 
@@ -77,9 +79,9 @@ class Drinks extends React.Component {
     const { drinks, toggleForm } = this.state;
 
     return (
-      <>
+      <div id="container">
         {this.props.drinksSearch ? (
-          <h3>Drink Results</h3>
+          <h3>Cocktail Results</h3>
         ) : (
 
             <h1>Cocktails</h1>
@@ -87,9 +89,9 @@ class Drinks extends React.Component {
 
         <Card.Group >
           {this.props.auth.user ?
-          <Card onClick={() => this.toggle()} >
+          <Card >
             {!toggleForm ? (
-              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"}/>
+              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()}/>
               ) : null}
             <Card.Content>
               <Card.Header >Add a Cocktail</Card.Header>
@@ -101,7 +103,7 @@ class Drinks extends React.Component {
             : null}
           {this.renderDrinks()}
         </Card.Group>
-      </>
+      </div>
     );
   }
 }

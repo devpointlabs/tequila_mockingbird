@@ -3,8 +3,9 @@ import Drink from "./Drink";
 import axios from "axios";
 import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid} from 'semantic-ui-react';
-import './Form.css'
+import './Form.css';
 import styled from 'styled-components';
+
 
 const defaultDrink = 'https://image.flaticon.com/icons/png/128/3184/3184574.png';
 
@@ -176,9 +177,9 @@ class DrinkForm extends React.Component {
       return (
         <div>
           {/* should this be on the drinks page??? */}
-          <br/>
-          <h1 className='formTitle'>Create your own drink!</h1>
-          <h4 className='formTitle'>Share your own recipes here, let us know how it's made and the history behind your own creation</h4>
+          {/* <br/> */}
+          {/* <h1 className='formTitle'>Create your own drink!</h1>
+          <h4 className='formTitle'>Share your own recipes here, let us know how it's made and the history behind your own creation</h4> */}
         <form onSubmit={this.handleSubmit}>
         <div className='format'>
           <div class='column'>
@@ -199,7 +200,7 @@ class DrinkForm extends React.Component {
               <br/>
           <textarea
             rows='6'
-            cols='200'
+            cols='30'
             placeholder="History"
             name="history"
             value={history}
@@ -211,7 +212,7 @@ class DrinkForm extends React.Component {
               <br/> 
           <textarea 
             rows='10'
-            cols='200'
+            cols='30'
             placeholder="Ingredients"
             name="ingredients"
             value={ingredients}
@@ -223,7 +224,8 @@ class DrinkForm extends React.Component {
               <br/>
           <textarea
             rows='6'
-            cols='200'
+
+            cols='30'
             placeholder="Preparation"
             name="prep_serv"
             value={prep_serv}

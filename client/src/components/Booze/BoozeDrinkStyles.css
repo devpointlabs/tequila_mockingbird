@@ -1,5 +1,9 @@
 
-img {
+#container {
+    margin: 50px;
+}
+
+#pic {
     position: absolute;
     top: 50px;
     right: 16px;
@@ -13,20 +17,19 @@ img {
     float: left;
     padding: .5em;
     margin-right: .5em;
+    background-color: lightgray;
 }
 
 #editLog {
     float: right;
 }
 
-/* .comments {
-    margin: .5em;
-    border: 1px solid red;
-    padding: 5px;
-} */
-
 td:first-child {
     width: 255px;
     border: 1px solid gray;
     padding: 5px;
+}
+
+#nameStyle, #content {
+    width: 85%;
 }

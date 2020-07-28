@@ -2,6 +2,8 @@ import React from "react";
 // import Comments from "./Comments";
 // import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
+import '../Drinks/Form.css'
+
 
 const styles = {
   dropzone: {
@@ -57,25 +59,52 @@ editImage = () => {
           onChange={this.handleChange}
           required
         />
+      </Grid.Column>
+      <Grid.Column width={4}>
+        {/* <Dropzone
+          onDrop={this.onDrop}
+          multiple={false}
+        >
+          {({ getRootProps, getInputProps, isDragActive }) => {
+            return (
+              <div
+                {...getRootProps()}
+                style={styles.dropzone}
+              >
+                <input {...getInputProps()} />
+                {
+                  isDragActive ?
+                    <p>Drop files here...</p> :
+                    <p>Try dropping some files here, or click to select files to upload.</p>
+                }
+              </div>
+            )
+          }}
+        </Dropzone> */}
+      </Grid.Column>
+
     </Form>
   )
 }
 
-  render() {
-    const { review } = this.state
-    return (
-      <div className='format'>
-        <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
-        <div className='center'>
-          <this.editImage />
-        </div>
-        <br/>
-        <hr/>
-        <br/>
-        <button class='ui fluid button'>Submit</button>
+
+render() {
+  const { review } = this.state
+  return (
+    <div className='format'>
+      <br/>
+      <br/>
+      <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
+      <div className='centering'>
+        <this.editImage />
       </div>
-    )
-  }
+      <br/>
+      <hr/>
+      <br/>
+      <button class='ui fluid button'>Submit</button>
+    </div>
+  )
+}
 }
 
 

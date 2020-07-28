@@ -7,6 +7,7 @@ import Comments from "../Comment/Comments";
 import CommentForm from "../Comment/CommentForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
+import "../Booze/BoozeDrinkStyles.css";
 
 const defaultDrink = "https://image.flaticon.com/icons/png/128/3184/3184574.png";
 
@@ -182,7 +183,7 @@ class DrinkView extends React.Component {
     if (this.props.auth.user.admin)
       return (
         <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit this Drink"}
+          {this.state.toggleEdit ? "Close Form" : "Edit this Cocktail"}
         </button>
       );
   };
@@ -198,11 +199,13 @@ class DrinkView extends React.Component {
     } = this.state.drink;
 
     return (
-      <div className="container">
-        <h1>{name}</h1>
-        <hr />
+      <div id="container">
+        <div id="nameStyle">
+          <h1>{name}</h1>
+          <hr />
+        </div>
         <div className="main">
-          <div className="content">
+          <div id="content">
             <h2 id="history">History</h2>
             <h3>{history}</h3>
             <h2 id="ingredients">Ingredients</h2>
@@ -219,11 +222,14 @@ class DrinkView extends React.Component {
                 <li>
                   <a href="#served">Served</a>
                 </li>
+                <li>
+                  <a href="#comments">Comments</a>
+                </li>
               </ol>
             </div>
             <h2 id="served">Served</h2>
             <h3>{prep_serv}</h3>
-            <img src={image || defaultDrink} />
+            <img id="pic" src={image || defaultDrink} />
           </div>
         </div>
         <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
@@ -240,7 +246,7 @@ class DrinkView extends React.Component {
         <h2>Liquor</h2>
         {this.renderLiquor()}
         {/* <button onClick={() => this.state.deleteDrink}>Delete</button> */}
-        <h2> Comments</h2>
+        <h2 id="comments"> Comments</h2>
         <Comments
           drinkId={this.props.match.params.id}
           user={this.props.auth.user}
