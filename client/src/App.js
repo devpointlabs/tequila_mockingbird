@@ -26,7 +26,7 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-    <Container>
+      <Container>
       <Switch>
         <Route exact path="/" component={Home} />
         <ProtectedRoute exact path='/profile' component={Profile} /> {/* We added this protected route from lecture*/}
