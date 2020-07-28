@@ -92,7 +92,7 @@ class Drinks extends React.Component {
             <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
           ) : null}
           {this.props.drinksSearch ? null :
-            <button onClick={() => this.toggle()}>Toggle Add Form</button>
+            <button onClick={() => this.toggle()}>Toggle Form</button>
           }
           {/* {this.props.auth.user ? this.isAdminButton() : null} */}
         </div>

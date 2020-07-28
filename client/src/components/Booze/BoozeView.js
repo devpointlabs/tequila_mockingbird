@@ -3,8 +3,9 @@ import axios from "axios";
 import BoozeForm from "./BoozeForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
+import "./BoozeDrinkStyles.css";
 
-const defaultBooze = "https://image.flaticon.com/icons/svg/920/920605.svg";
+const defaultBooze = "https://img.icons8.com/pastel-glyph/64/000000/alcohol.png";
 
 class BoozeView extends React.Component {
   state = { booze: {}, toggleEdit: false, drinks: [], audits: [] };
@@ -118,7 +119,7 @@ class BoozeView extends React.Component {
     if (this.props.auth.user.admin)
       return (
         <button onClick={() => this.toggle()}>
-          {this.state.toggleEdit ? "Close Form" : "Edit"}
+          {this.state.toggleEdit ? "Close Form" : "Edit this Booze"}
         </button>
       );
     return null;
@@ -146,15 +147,30 @@ class BoozeView extends React.Component {
   render() {
     const { name, history, production, image } = this.state.booze;
     return (
-      <div>
+      <div className="container">
         <h1>{name}</h1>
-
-        <h2>History</h2>
-        <h3>{history}</h3>
-        <h2>Production</h2>
-        <h3>{production}</h3>
-        <img src={image || defaultBooze} />
-        {this.props.auth.user ? this.isAdmin() : null}
+        <hr />
+        <div className="main">
+          <div className="content">
+            <h2 id="history">History</h2>
+            <h3>{history}</h3>
+            <h2 id="production">Production</h2>
+            <div className="tableOfContents">
+              <h5>Table of Contents</h5>
+              <ol>
+                <li>
+                  <a href="#history">History</a>
+                </li>
+                <li>
+                  <a href="#production">Production</a>
+                </li>
+              </ol>
+            </div>
+            <h3>{production}</h3>
+            <img src={image || defaultBooze} />
+          </div>
+        </div>
+        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
 
         {this.state.toggleEdit ? (
           <BoozeForm
@@ -167,7 +183,7 @@ class BoozeView extends React.Component {
 
         {this.renderDrinks()}
 
-        <div>
+        {/* <div>
           Icons made by{" "}
           <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
             Freepik
@@ -176,7 +192,7 @@ class BoozeView extends React.Component {
           <a href="https://www.flaticon.com/" title="Flaticon">
             www.flaticon.com
           </a>
-        </div>
+        </div> */}
       </div>
     );
   }
