@@ -69,13 +69,13 @@ class Boozes extends React.Component {
         ) : (
           <h3>Hello Booze World</h3>
         )}
+        {this.renderBoozes()}
         <div>
           {showForm ? (
             <BoozeForm add={this.addBooze} toggleForm={this.toggle} />
           ) : null}
           {this.props.auth.user ? this.isAdmin() : null}
         </div>
-        {this.renderBoozes()}
       </div>
     );
   }

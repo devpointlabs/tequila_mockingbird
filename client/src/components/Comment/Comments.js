@@ -26,9 +26,11 @@ class Comments extends React.Component {
     this.state.comments.map((comment) => (
       <div>
         {comment.review}
+        <br/>
         {this.props.user ? 
         this.isAdmin(comment.id) : null
-      }
+        }
+        <hr/>
       </div>
     ))
   )
@@ -77,10 +79,8 @@ class Comments extends React.Component {
       <div>
         {/* <h1>Hammered</h1> */}
         {this.renderComments()}
-        <div>
-          
-            <CommentForm add={this.addComment} />
-          
+        <div>         
+            <CommentForm add={this.addComment} />         
         </div>
       </div>
     );

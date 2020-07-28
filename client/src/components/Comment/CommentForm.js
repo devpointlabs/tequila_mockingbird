@@ -2,9 +2,6 @@ import React from "react";
 // import Comments from "./Comments";
 // import Dropzone from 'react-dropzone'; //Import Dropzone
 import { Form, Grid, Image, Container, Divider, Header, Button, } from 'semantic-ui-react';
-import { EditorState, convertToRaw } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const styles = {
   dropzone: {
@@ -24,7 +21,6 @@ const styles = {
 class CommentForm extends React.Component {
   state = { 
     review: '',
-    editorState: EditorState.createEmpty()
   };
 
   componentDidMount() {
@@ -34,16 +30,11 @@ class CommentForm extends React.Component {
     }
   }
 
-  // handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // };
-
-  onEditorStateChange = (e,review) => {
-    this.setState({
-      review,
-    });
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
+
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -54,41 +45,35 @@ class CommentForm extends React.Component {
 
 
 editImage = () => {
-  const {review, editorState} = this.state;
+  const {review} = this.state;
   return (
     <Form onSubmit={this.handleSubmit}>
-      <Grid.Column width={6}>
-
-
-        <Editor
-          editorState={editorState}
-          review={review}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          name="review"
-          value={review}
-          onEditorStateChange={this.onEditorStateChange}
-        />
-        {/* <input
+        <textarea
+          cols='200'
+          rows='10'
           placeholder="Comment"
           name="review"
           value={review}
           onChange={this.handleChange}
           required
-        /> */}
-      </Grid.Column>
-      <Button>Submit</Button>
+        />
     </Form>
   )
 }
 
   render() {
-    const { review, editorState } = this.state
+    const { review } = this.state
     return (
-      <>
-        <this.editImage />
-      </>
+      <div className='format'>
+        <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
+        <div className='center'>
+          <this.editImage />
+        </div>
+        <br/>
+        <hr/>
+        <br/>
+        <button class='ui fluid button'>Submit</button>
+      </div>
     )
   }
 }
