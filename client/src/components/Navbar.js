@@ -78,7 +78,7 @@ class Navbar extends React.Component {
       
           
         </Menu>
-        <div style={{display:"flex", justifyContent:"flex-start"}}>
+        <div style={{display:"flex", justifyContent:"flex-start", margin:"8px"}}>
             <SearchBar />
 
         </div>
