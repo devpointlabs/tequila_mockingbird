@@ -237,7 +237,7 @@ class DrinkForm extends React.Component {
           <br />
           {this.checkboxBooze()}
           </div>
-          <div>
+          <div className='item'>
             {this.props.drink ? this.dropZone() : ""}
           </div>
           <hr />

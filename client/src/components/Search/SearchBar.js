@@ -3,10 +3,10 @@ import axios from "axios";
 import { Input, Button, Form } from "semantic-ui-react";
 import Drinks from "../Drinks/Drinks";
 import Boozes from "../Booze/Boozes";
-
+import { withRouter } from "react-router-dom";
+import image from "../Image/tequilalogo.png";
 class SearchBar extends React.Component {
   state = { search: null, drinks: [], boozes: [], searched: false };
-
   searchBoozeDrinks = (e, search) => {
     e.preventDefault();
     axios.get(`/api/search_drinks?search=${search}`).then((res) => {
@@ -18,86 +18,94 @@ class SearchBar extends React.Component {
       this.setState({ searched: true });
     });
   };
-
   handleSearchChange = (e, { name, value }) => {
     this.setState({ [name]: value });
     if (value === "") {
       this.clearSearch(value);
     }
   };
-
+  componentWillUpdate() {
+    this.props.history.listen((location, action) => {
+      if (action === "PUSH") {
+        // debugger
+        console.log("Hit");
+        this.clearSearch();
+        // this.setState({search: null, boozes: [], drinks: []})
+      }
+      console.log(location, action);
+      // Do stuff.
+    });
+  }
   clearSearch = (searchValue) => {
-    if (searchValue === "") {
-      this.setState({ drinks: [] });
-      this.setState({ boozes: [] });
-      this.setState({ searched: false });
+    if (searchValue === "" || searchValue === undefined) {
+      // debugger
+      this.setState({ search: "", boozes: [], drinks: [], searched: false });
+      // this.setState({ drinks: [] });
+      // this.setState({ boozes: [] });
+      // this.setState({ searched: false });
     }
   };
-
   render() {
     return (
-      <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            padding: "1em",
+          }}
+        >
+          <img src={image} style={{ width: "4em", height: "5em" }} />
           {/* Search Me */}
-        <Form >
-          <Input
-            placeholder="Find a cocktail..."
-            onChange={this.handleSearchChange}
-            value={this.state.search}
-            name="search"
-          />
-          <Button onClick={(e) => this.searchBoozeDrinks(e, this.state.search)}>
-            Search
-          </Button>
-        </Form>
-
-    <div style={{display:"flex", justifyContent:"center"}}>
-        {/* RESULTS */}
-        {this.state.searched ? (
-          this.state.drinks.length > 0 ? (
-            <Drinks drinksSearch={this.state.drinks} />
-          ) : (
-            "No Cocktails found "
-          )
-        ) : null}
-
-        
-        {this.state.searched ? (
-          this.state.boozes.length > 0 ? (
-            <Boozes boozesSearch={this.state.boozes} />
-          ) : (
-            "No Alcohol found "
-          )
-        ) : null}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: ".5em",
+            }}
+          >
+            <Form>
+              <Input
+                placeholder="Find a cocktail..."
+                onChange={this.handleSearchChange}
+                value={this.state.search}
+                name="search"
+              />
+              <Button
+                onClick={(e) => this.searchBoozeDrinks(e, this.state.search)}
+              >
+                Search
+              </Button>
+            </Form>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {/* RESULTS */}
+          {this.state.searched ? (
+            this.state.drinks.length > 0 ? (
+              <Drinks drinksSearch={this.state.drinks} />
+            ) : (
+              "No Cocktails found "
+            )
+          ) : null}
+          {this.state.searched ? (
+            this.state.boozes.length > 0 ? (
+              <Boozes boozesSearch={this.state.boozes} />
+            ) : (
+              "No Alcohol found "
+            )
+          ) : null}
         </div>
       </div>
     );
   }
 }
-
-export default SearchBar;
-
-//  get "search_posts", to: "posts#search_posts"
-
-// def search_posts
-//     render json: Post.search_posts(params[:search], params[:search])
-//   end
-
-// def self.filter_category(id)
-//     find_by_sql(["
-//       SELECT posts.*
-//       FROM categories
-//       LEFT JOIN categories_posts as cp on categories.id = cp.category_id
-//       LEFT JOIN posts on cp.post_id = posts.id
-//       WHERE categories.id = ?
-//       ORDER BY updated_at DESC
-//       ", id])
-//   end
-
-//   def self.search_posts(title, body)
-//     find_by_sql(["
-//     SELECT *
-//     FROM posts
-//     WHERE LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)
-//     ORDER BY updated_at DESC
-//     ", "%#{title}%", "%#{body}%"])
-//   end
+export default withRouter(SearchBar);

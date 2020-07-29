@@ -52,15 +52,14 @@ editImage = () => {
     <Form onSubmit={this.handleSubmit}>
         <textarea
           cols='200'
-          rows='10'
+          rows='8'
           placeholder="Comment"
           name="review"
           value={review}
           onChange={this.handleChange}
           required
         />
-      {/* </Grid.Column> */}
-      <Grid.Column width={4}>
+      {/* <Grid.Column width={4}>
         {/* <Dropzone
           onDrop={this.onDrop}
           multiple={false}
@@ -81,7 +80,13 @@ editImage = () => {
             )
           }}
         </Dropzone> */}
-      </Grid.Column>
+      {/* </Grid.Column> */}
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <hr/>
+<button class='ui fluid button'>Submit</button>
 
     </Form>
   )
@@ -95,13 +100,9 @@ render() {
       <br/>
       <br/>
       <h3 className='formTitle'>Tell us what you think and leave a comment</h3>
-      <div className='centering'>
-        <this.editImage />
-      </div>
-      <br/>
-      <hr/>
-      <br/>
-      <button class='ui fluid button'>Submit</button>
+        <div className='centering'>
+          <this.editImage />
+        </div>
     </div>
   )
 }

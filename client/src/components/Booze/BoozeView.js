@@ -125,6 +125,8 @@ class BoozeView extends React.Component {
     return null;
   };
 
+
+  
   dateCreated = (audit) => {
     //! REFACTOR THIS TO MOMENTJS
     var date = new Date(audit);
@@ -172,9 +174,8 @@ class BoozeView extends React.Component {
             <img id="pic" src={image || defaultBooze} />
           </div>
         </div>
-        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
 
-        {this.state.toggleEdit ? <BoozeForm booze={this.state.booze} editBooze={this.editBooze} toggleEdit={this.toggle}/> : null}
+        {/* {this.state.toggleEdit ? <BoozeForm booze={this.state.booze} editBooze={this.editBooze} toggleEdit={this.toggle}/> : null} */}
         <button onClick={() => this.toggle()}>
           {this.state.toggleEdit ? "Close Form" : "Edit"}
         </button>
@@ -188,7 +189,8 @@ class BoozeView extends React.Component {
             toggleEdit={this.toggle}
           />
         ) : null}
-        {this.props.auth.user ? this.isAdminButton() : null}
+        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
+        {/* {this.props.auth.user ? this.isAdminButton() : null} */}
 
         {this.renderDrinks()}
 
