@@ -1,8 +1,9 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import SearchBar from "./Search/SearchBar";
+import logo from "./Image/tequilalogo.png";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
@@ -78,7 +79,7 @@ class Navbar extends React.Component {
       
           
         </Menu>
-        <div style={{display:"flex", justifyContent:"flex-start"}}>
+        <div style={{display:"flex", justifyContent:"flex-start", margin:"10px"}}>
             <SearchBar />
 
         </div>

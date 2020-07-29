@@ -86,7 +86,7 @@ class BoozeForm extends React.Component {
     const { file, } = this.state;
     return(
       <Form onSubmit={this.handleSubmit}>
-        <Grid.Column width={4}>
+
           <Dropzone
             onDrop={this.onDrop}
             multiple={false}
@@ -107,7 +107,6 @@ class BoozeForm extends React.Component {
               )
             }}
           </Dropzone>
-        </Grid.Column>
       </Form>
     )}
 
@@ -115,12 +114,10 @@ class BoozeForm extends React.Component {
     const { name, production, history, image } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <h1 className='formTitle'>Add A Booze</h1>
-        <h4 className='formTitle'>Add another alochol that we missed </h4>
         <div className='boozeFormat'>
           <div className='boozeColumn'>
             <ul>
-            <li className='item'>
+            <li>
               <label>Name: </label>
               <br/>
               <input
@@ -130,7 +127,7 @@ class BoozeForm extends React.Component {
                 onChange={this.handleChange}
               />
             </li>
-            <li className='item'> 
+            <li> 
               <label>Production: </label>
               <br/>             
               <textarea
@@ -142,7 +139,7 @@ class BoozeForm extends React.Component {
                 onChange={this.handleChange}
               />
             </li>
-            <li className='item'> 
+            <li> 
               <label>History: </label>
               <br/>             
               <textarea
@@ -155,15 +152,13 @@ class BoozeForm extends React.Component {
               />
             </li>
             </ul>
-          <div className='item'>
-            {this.props.booze ? this.dropZone() : ""}
-          </div>
+            <div className='item'>
+              {this.props.booze ? this.dropZone() : ""}
+            </div>
           </div>
           <hr />
           <br/>
-          <div>
-            <button class='ui fluid button'>Submit</button>
-          </div>
+          <button class='ui fluid button'>Submit</button>
         </div>
       </form>
     );
