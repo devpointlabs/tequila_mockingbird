@@ -8,9 +8,7 @@ import CommentForm from "../Comment/CommentForm";
 import { Link, withRouter } from "react-router-dom";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import "../Booze/BoozeDrinkStyles.css";
-
 const defaultDrink = "https://image.flaticon.com/icons/png/128/3184/3184574.png";
-
 class DrinkView extends React.Component {
   state = {
     drink: {},
@@ -19,7 +17,6 @@ class DrinkView extends React.Component {
     liquor: [],
     audits: [],
   };
-
   componentDidMount() {
     const { id } = this.props.match.params;
     axios.get(`/api/drinks/${id}`).then((res) => {
@@ -29,7 +26,6 @@ class DrinkView extends React.Component {
     axios.get("/api/boozes").then((res) => {
       this.setState({ boozes: res.data });
     });
-
     axios.get(`/api/drinks/${id}/boozes`).then((res) => {
       this.setState({ liquor: res.data });
     });
@@ -41,7 +37,6 @@ class DrinkView extends React.Component {
     //   this.setState({ boozedrink: res.data });
     // });
   }
-
   editDrink = (id, drink, checkedBoozes) => {
     let data = new FormData();
     data.append("file", drink.file);
@@ -53,7 +48,6 @@ class DrinkView extends React.Component {
       )
       .then((res) => {
         this.setState({ drink: res.data });
-
         // 2. we need to delete all boozedrinks associated with this drink
         // axios call to a method in drink that deletes all boooze drinks models.
         this.deleteBoozeDrinks(id);
@@ -62,7 +56,6 @@ class DrinkView extends React.Component {
         this.addBoozeDrink(id, checkedBoozes);
       });
   };
-
   addBoozeDrink = (drinkId, checkedBoozes) => {
     // assuming our create is normal
     const promiseBoozeArray = checkedBoozes.map((cb) => {
@@ -78,17 +71,14 @@ class DrinkView extends React.Component {
     //     console.log(res.data);
     //   });
   };
-
   deleteBoozeDrinks = (drinkId) => {
     axios
       .delete(`/api/drinks/${drinkId}/boozedrinks`)
       .then(console.log("It worked"));
   };
-
   toggle = () => {
     this.setState({ toggleEdit: !this.state.toggleEdit });
   };
-
   renderLiquor = () => {
     return this.state.liquor.map((l) => (
       <div>
@@ -96,12 +86,10 @@ class DrinkView extends React.Component {
       </div>
     ));
   };
-
   auditChanges = (changes) => {
     // Grabs the values changed from the changes object and maps through all the values changed
     // Audit magic grabs previous one, and current one. One === value
     // There was only two values in an array so we just grab the index of each.
-
     if (changes.image === null) {
       changes.image = defaultDrink;
     }
@@ -114,7 +102,6 @@ class DrinkView extends React.Component {
     });
     return arr2;
   };
-
   auditTitle = (changes) => {
     // Grabs the key from the changes object and maps through all the keys changed
     if (changes.image === null) {
@@ -127,7 +114,6 @@ class DrinkView extends React.Component {
     });
     return arr1;
   };
-
   renderAudits = () => {
     if (this.state.audits.length === 0) return null;
     return this.state.audits.map((a) => {
@@ -147,7 +133,6 @@ class DrinkView extends React.Component {
       );
     });
   };
-
   isAdmin = () => {
     if (this.props.auth.user.admin)
       return (
@@ -159,7 +144,6 @@ class DrinkView extends React.Component {
       );
     return null;
   };
-
   dateCreated = (audit) => {
     //! REFACTOR THIS TO MOMENTJS
     var date = new Date(audit);
@@ -178,7 +162,6 @@ class DrinkView extends React.Component {
     var fullDate = month + "/" + day + "/" + year;
     return `${fullDate} at ${strTime} (${dayOfWeek})`;
   };
-
   isAdminButton = () => {
     if (this.props.auth.user.admin)
       return (
@@ -187,7 +170,6 @@ class DrinkView extends React.Component {
         </button>
       );
   };
-
   render() {
     const {
       name,
@@ -197,7 +179,6 @@ class DrinkView extends React.Component {
       id,
       image,
     } = this.state.drink;
-
     return (
       <div id="container">
         <div id="nameStyle">
@@ -232,8 +213,6 @@ class DrinkView extends React.Component {
             <img id="pic" src={image || defaultDrink} />
           </div>
         </div>
-        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
-
         {this.state.toggleEdit ? (
           <DrinkForm
             drink={this.state.drink}
@@ -241,6 +220,7 @@ class DrinkView extends React.Component {
             toggleEdit={this.toggle}
           />
         ) : null}
+        <div id="editLog">{this.props.auth.user ? this.isAdmin() : null}</div>
         {this.props.auth.user ? this.isAdminButton() : null}
         {/* <hr /> */}
         <h2>Liquor</h2>
@@ -255,7 +235,6 @@ class DrinkView extends React.Component {
     );
   }
 }
-
 export class ConnectedDrinkView extends React.Component {
   render() {
     return (
@@ -265,5 +244,4 @@ export class ConnectedDrinkView extends React.Component {
     );
   }
 }
-
 export default withRouter(ConnectedDrinkView);
