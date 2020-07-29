@@ -6,7 +6,7 @@ import { ConnectedBoozes } from "../Booze/Boozes";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import { withRouter } from "react-router-dom";
 import styled from 'styled-components';
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 import "../Booze/BoozeDrinkStyles.css";
 
 
@@ -37,8 +37,8 @@ class Drinks extends React.Component {
     ));
 
   toggle = () => {
-    this.setState({ toggleForm: !this.state.toggleForm})
-    
+    this.setState({ toggleForm: !this.state.toggleForm })
+
   };
 
   //! CRUD ACTIONS
@@ -86,23 +86,30 @@ class Drinks extends React.Component {
 
             <h1>Cocktails</h1>
           )}
+          {this.props.auth.user && toggleForm?(
+                <>
+                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
+                <Button onClick={() => this.toggle()}>
+                {this.state.toggleForm ? "Close Form" : ""}
+                </Button>
+                </>
+              ) : null}
 
         <Card.Group >
-          {this.props.auth.user ?
-          <Card >
-            {!toggleForm ? (
-              <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()}/>
+          {this.props.auth.user && !toggleForm?(
+            <Card >
+                  <Image size='medium' src={"https://pluspng.com/img-png/free-png-plus-sign-plus-icon-512.png"} onClick={() => this.toggle()} />
+                  <Card.Content>
+                    <Card.Header onClick={() => this.toggle()}> Add a Cocktail</Card.Header>
+                  </Card.Content>
+                </Card>
               ) : null}
-            <Card.Content>
-              <Card.Header >Add a Cocktail</Card.Header>
-              {toggleForm ? (
-                <DrinkForm add={this.addDrink} toggleForm={this.toggle} />
-                ) : null}
-            </Card.Content>
-          </Card>
-            : null}
-          {this.renderDrinks()}
-        </Card.Group>
+            {this.renderDrinks()}
+            </Card.Group>
+            
+                
+
+
       </div>
     );
   }

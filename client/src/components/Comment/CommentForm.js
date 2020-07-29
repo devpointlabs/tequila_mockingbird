@@ -59,7 +59,7 @@ editImage = () => {
           onChange={this.handleChange}
           required
         />
-      </Grid.Column>
+      {/* </Grid.Column> */}
       <Grid.Column width={4}>
         {/* <Dropzone
           onDrop={this.onDrop}
